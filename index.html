@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مجموعة البورد الأوروبي — European Board Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:wght@500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#07162b; --navy-850:#0a1d38; --navy-800:#0c2342; --navy-700:#143256;
+  --ivory:#f7f1e5; --ivory-2:#fcf8f0; --parchment:#efe6d3;
+  --gold:#c9a24b; --gold-soft:#e6cd8b; --gold-deep:#a07d2c;
+  --burgundy:#6e2333; --royal:#1d3b6e;
+  --ink:#1b2230; --ink-soft:#535b6b; --on-navy:#ece3cf; --on-navy-soft:#aeb9cb;
+  --line-gold:rgba(201,162,75,.34);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;color:var(--ink);background:var(--navy-900);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.7}
+.kufi{font-family:'Noto Kufi Arabic',sans-serif}
+.latin{font-family:'Cormorant Garamond',serif}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+a{text-decoration:none;color:inherit}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 28px;border-radius:46px;font-family:'Tajawal';font-weight:700;font-size:15px;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.btn-gold{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#2a1e07;box-shadow:0 14px 32px -14px rgba(201,162,75,.7)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(201,162,75,.85)}
+.btn-gold::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn-gold:hover::after{left:130%}
+.btn-ghost{background:transparent;border:1px solid rgba(230,205,139,.5);color:var(--gold-soft)}
+.btn-ghost:hover{background:rgba(230,205,139,.12);border-color:var(--gold-soft);transform:translateY(-2px)}
+
+/* ---------- header ---------- */
+header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .4s,box-shadow .4s,padding .4s;padding:16px 0}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+header.scrolled{background:rgba(7,22,43,.92);backdrop-filter:blur(10px);box-shadow:0 10px 30px -18px #000;padding:8px 0}
+.brand{display:flex;align-items:center;gap:13px}
+.brand img{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px}
+.brand b{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:17px;display:block;line-height:1.2}
+.brand span{font-family:'Cormorant Garamond';font-weight:600;letter-spacing:3px;font-size:10px;color:var(--gold-soft);text-transform:uppercase}
+nav.main{display:flex;gap:26px}
+nav.main a{color:var(--on-navy-soft);font-size:14.5px;font-weight:500;position:relative;padding:4px 0;transition:color .3s}
+nav.main a::after{content:"";position:absolute;bottom:0;right:0;height:1.5px;width:0;background:var(--gold);transition:width .35s}
+nav.main a:hover{color:var(--ivory)}nav.main a:hover::after{width:100%}
+.hgroup{display:flex;align-items:center;gap:14px}
+.lang{border:1px solid rgba(230,205,139,.4);border-radius:40px;padding:6px 13px;color:var(--gold-soft);font-size:13px;font-weight:700;cursor:pointer;background:rgba(230,205,139,.05);transition:.3s}
+.lang:hover{background:rgba(230,205,139,.15)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:130px 0 90px;overflow:hidden;background:linear-gradient(165deg,#07162b,#0a1d38 50%,#081a32)}
+.hero-bg,.hero-bg span{position:absolute;inset:0;pointer-events:none}
+.glow{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.glow.g1{width:560px;height:560px;background:radial-gradient(circle,rgba(29,59,110,.85),transparent 70%);top:-120px;left:-100px;animation:drift1 22s ease-in-out infinite}
+.glow.g2{width:520px;height:520px;background:radial-gradient(circle,rgba(110,35,51,.6),transparent 70%);bottom:-160px;right:-80px;animation:drift2 26s ease-in-out infinite}
+.glow.g3{width:420px;height:420px;background:radial-gradient(circle,rgba(201,162,75,.18),transparent 70%);top:40%;left:55%;animation:drift1 30s ease-in-out infinite reverse}
+.guilloche{position:absolute;inset:0;opacity:.10;background:
+  repeating-radial-gradient(circle at 78% 30%,transparent 0 13px,rgba(201,162,75,.5) 13px 14px),
+  repeating-radial-gradient(circle at 20% 75%,transparent 0 16px,rgba(201,162,75,.35) 16px 17px);
+  mask-image:radial-gradient(circle at 60% 40%,#000,transparent 80%)}
+.threads{position:absolute;inset:0;width:100%;height:100%}
+.threads path{fill:none;stroke:url(#gthread);stroke-width:1.1;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 6s ease forwards;opacity:.5}
+.threads path:nth-child(2){animation-delay:.8s}
+.threads path:nth-child(3){animation-delay:1.6s}
+
+.hero .wrap{position:relative;z-index:3;display:grid;grid-template-columns:1.04fr .96fr;gap:50px;align-items:center;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold-soft);font-family:'Cormorant Garamond';font-weight:600;letter-spacing:3px;text-transform:uppercase;font-size:13px;margin-bottom:22px}
+.eyebrow::before{content:"";width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.hero h1{font-family:'Noto Kufi Arabic';font-weight:800;color:var(--ivory);font-size:50px;line-height:1.4;margin-bottom:20px}
+.hero h1 .au{color:var(--gold-soft)}
+.hero .lead{color:var(--on-navy-soft);font-size:18px;line-height:2;max-width:560px;margin-bottom:34px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.assur{display:flex;gap:26px;margin-top:42px;flex-wrap:wrap}
+.assur div{display:flex;align-items:center;gap:8px;color:var(--on-navy-soft);font-size:13.5px}
+.assur b{color:var(--gold);font-size:16px}
+
+/* hero composition */
+.compo{position:relative;height:480px}
+.medallion{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,#0e2748,#0a1d38 72%);display:grid;place-items:center;z-index:2;box-shadow:0 0 0 1px var(--line-gold),0 30px 70px -30px #000;animation:floatY 7s ease-in-out infinite}
+.medallion::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(201,162,75,.45);animation:spin 40s linear infinite}
+.medallion img{width:192px;height:192px;border-radius:50%;object-fit:contain;background:#0b1f3a;padding:4px}
+.doc{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 26px 60px -24px rgba(0,0,0,.75);border:1px solid var(--line-gold);background:#fff;will-change:transform}
+.doc::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
+.doc.cert{width:188px;top:8px;right:0;transform:rotate(4deg);animation:floatY 8s ease-in-out infinite}
+.doc.id{width:230px;bottom:6px;left:0;transform:rotate(-5deg);animation:floatY2 9s ease-in-out infinite}
+.doc.seal{width:96px;height:96px;border-radius:50%;top:24px;left:36px;display:grid;place-items:center;background:radial-gradient(circle,#fff,#f3ead5);animation:floatY2 6.5s ease-in-out infinite}
+.doc.seal img{width:78px;height:78px;border-radius:50%;object-fit:contain}
+.parallax{transition:transform .25s ease-out}
+
+/* ---------- generic section ---------- */
+section.band{position:relative;padding:96px 0}
+.sec-ivory{background:linear-gradient(180deg,var(--ivory),var(--ivory-2))}
+.sec-navy{background:linear-gradient(180deg,var(--navy-850),var(--navy-900));color:var(--on-navy)}
+.sec-parch{background:var(--parchment)}
+.edge-gold{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.edge-top{top:0}.edge-bot{bottom:0}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 54px}
+.sec-head .kick{font-family:'Cormorant Garamond';letter-spacing:4px;text-transform:uppercase;font-weight:700;font-size:12px;color:var(--gold-deep)}
+.sec-navy .sec-head .kick{color:var(--gold-soft)}
+.sec-head h2{font-family:'Noto Kufi Arabic';font-weight:800;font-size:36px;margin:12px 0;color:var(--navy-800)}
+.sec-navy .sec-head h2{color:var(--ivory)}
+.sec-head p{font-size:16.5px;color:var(--ink-soft);line-height:1.9}
+.sec-navy .sec-head p{color:var(--on-navy-soft)}
+.sec-head .dv{width:74px;height:2px;background:var(--gold);margin:16px auto 0;position:relative}
+.sec-head .dv::before,.sec-head .dv::after{content:"";position:absolute;top:50%;width:5px;height:5px;border-radius:50%;background:var(--gold);transform:translateY(-50%)}
+.sec-head .dv::before{right:-11px}.sec-head .dv::after{left:-11px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- verification ---------- */
+.verify-band{margin-top:-66px;position:relative;z-index:6}
+.verify{max-width:760px;margin:0 auto;background:linear-gradient(165deg,#f9f4e9,#fdfaf3);border-radius:20px;padding:40px 44px;position:relative;box-shadow:0 44px 90px -34px rgba(0,0,0,.6),0 0 0 1px var(--line-gold);transition:box-shadow .4s}
+.verify.active{box-shadow:0 44px 90px -30px rgba(0,0,0,.6),0 0 0 2px var(--gold)}
+.verify::before{content:"";position:absolute;inset:12px;border:1px solid var(--line-gold);border-radius:13px;pointer-events:none}
+.vc{position:absolute;width:18px;height:18px;border:2px solid var(--gold-deep)}
+.vc.a{top:18px;right:18px;border-left:0;border-bottom:0}.vc.b{top:18px;left:18px;border-right:0;border-bottom:0}
+.vc.c{bottom:18px;right:18px;border-left:0;border-top:0}.vc.d{bottom:18px;left:18px;border-right:0;border-top:0}
+.verify h3{font-family:'Noto Kufi Arabic';font-weight:700;font-size:22px;text-align:center;color:var(--navy-800)}
+.verify .sub{text-align:center;color:var(--ink-soft);font-size:13.5px;margin-top:6px;margin-bottom:24px}
+.vrow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vfield label{display:block;font-size:13px;font-weight:700;color:var(--navy-800);margin-bottom:7px}
+.vfield select,.vfield input{width:100%;padding:14px 15px;border:1px solid rgba(27,34,48,.18);border-radius:10px;font-family:'Tajawal';font-size:15px;background:#fffdf8;outline:none;transition:.25s}
+.vfield select:focus,.vfield input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.2)}
+.verify .btn-gold{width:100%;justify-content:center;margin-top:20px;padding:15px}
+.vnote{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:13px}
+
+/* ---------- board cards ---------- */
+.grid{display:grid;gap:22px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.board{background:#fffdf8;border:1px solid var(--line-gold);border-radius:16px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;transition:transform .4s,box-shadow .4s,border-color .4s}
+.board::before{content:"";position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold),var(--gold-soft));transform:scaleX(0);transform-origin:center;transition:transform .45s}
+.board:hover{transform:translateY(-8px);box-shadow:0 32px 56px -28px rgba(12,35,66,.55);border-color:var(--gold)}
+.board:hover::before{transform:scaleX(1)}
+.board .lw{width:200px;height:200px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle,#fffdf8,#f4ecd9);border:1px solid var(--line-gold);display:grid;place-items:center;padding:18px;overflow:hidden;transition:transform .4s;box-shadow:0 10px 26px -16px rgba(12,35,66,.45)}
+.board:hover .lw{transform:scale(1.05)}
+.board .lw img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.board .lw.dark{background:radial-gradient(circle,#12294a,#0a1d38);padding:0;border-color:rgba(201,162,75,.5)}
+.board .lw.dark img{mix-blend-mode:normal;object-fit:cover}
+.board h4{font-family:'Noto Kufi Arabic';font-weight:600;font-size:16.5px;color:var(--navy-800);margin-bottom:6px;min-height:46px;display:flex;align-items:center;justify-content:center}
+.board .type{display:inline-block;font-size:11px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.13);padding:4px 12px;border-radius:30px;margin-bottom:13px}
+.board .lk{color:var(--navy-700);font-weight:700;font-size:13.5px;display:inline-flex;gap:6px;align-items:center;transition:.3s}
+.board:hover .lk{color:var(--gold-deep);gap:10px}
+
+/* about */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+.about .mv{display:grid;gap:18px}
+.mvcard{background:#fffdf8;border:1px solid var(--line-gold);border-radius:14px;padding:24px 26px;position:relative}
+.mvcard h5{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--navy-800);font-size:18px;margin-bottom:6px}
+.mvcard p{color:var(--ink-soft);font-size:15px}
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:6px}
+.val{background:var(--navy-850);color:var(--on-navy);border-radius:14px;padding:24px;border:1px solid rgba(201,162,75,.2);position:relative;transition:transform .4s,border-color .4s}
+.val:hover{transform:translateY(-6px);border-color:var(--gold)}
+.val b{font-family:'Noto Kufi Arabic';color:var(--gold-soft);font-size:18px;display:block;margin-bottom:6px}
+.val span{font-size:13.5px;color:var(--on-navy-soft)}
+.pending{display:inline-block;font-size:11px;font-weight:700;color:#7a5a12;background:rgba(201,162,75,.2);border:1px dashed var(--gold-deep);padding:3px 10px;border-radius:20px;margin-top:8px}
+/* electric border — same layer structure as electric-border.html (gold theme) */
+.eb{--ebc:var(--gold);--ebl:var(--gold-soft);position:relative;isolation:isolate}
+.eb-content{position:relative;z-index:3}
+.eb .eb-main,.eb .eb-g1,.eb .eb-g2,.eb .eb-ov1,.eb .eb-ov2,.eb .eb-bg{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.eb .eb-main{border:2px solid var(--ebc);filter:url(#eb-turb);z-index:2}
+.eb .eb-g1{border:2px solid color-mix(in oklab,var(--ebc) 70%,transparent);filter:url(#eb-turb) blur(1px);z-index:2}
+.eb .eb-main,.eb .eb-g1{inset:5px;border-radius:11px}
+.eb .eb-g2,.eb .eb-ov1,.eb .eb-ov2,.eb .eb-bg{display:none}
+.eb-gold{--ebc:#c9a24b;--ebl:#e6cd8b}
+.eb-royal{--ebc:#4a78d6;--ebl:#86a9ec}
+.eb-rose{--ebc:#c25668;--ebl:#e493a0}
+.eb-emerald{--ebc:#2fa98a;--ebl:#79d2bd}
+
+/* timeline (GSAP scroll-driven) */
+.timeline{position:relative;max-width:940px;margin:0 auto;padding:12px 0}
+.timeline::before{content:"";position:absolute;top:0;bottom:0;right:50%;width:2px;transform:translateX(50%);background:rgba(201,162,75,.14)}
+.timeline::after{content:"";position:absolute;top:0;right:50%;width:2px;transform:translateX(50%);height:var(--p,0%);background:linear-gradient(180deg,var(--gold-soft),var(--gold));box-shadow:0 0 16px rgba(201,162,75,.6)}
+.tl{position:relative;width:50%;padding:16px 48px;box-sizing:border-box}
+.tl:nth-child(odd){text-align:left}
+.tl:nth-child(even){margin-right:50%;text-align:right}
+.tl .dot{position:absolute;top:20px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle,#13294a,#0a1d38);border:1px solid rgba(201,162,75,.55);display:grid;place-items:center;color:var(--gold-soft);box-shadow:0 0 0 5px var(--navy-900);z-index:3;opacity:.45;transition:transform .55s,box-shadow .55s,opacity .55s,border-color .55s}
+.tl .dot svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tl:nth-child(odd) .dot{left:-23px}
+.tl:nth-child(even) .dot{right:-23px}
+.tl.active .dot{opacity:1;border-color:var(--gold);box-shadow:0 0 0 5px var(--navy-900),0 0 26px rgba(201,162,75,.6);transform:scale(1.08)}
+.tl .tcard{display:inline-block;max-width:340px;text-align:right;background:rgba(16,38,68,.5);border:1px solid rgba(201,162,75,.18);border-radius:16px;padding:18px 22px;backdrop-filter:blur(4px);opacity:.5;transition:opacity .55s,transform .5s,border-color .5s,box-shadow .5s}
+.tl.active .tcard{opacity:1;border-color:rgba(201,162,75,.5);box-shadow:0 24px 50px -26px rgba(0,0,0,.65)}
+.tl .tcard:hover{transform:translateY(-5px);border-color:var(--gold)}
+.tl .yr{font-family:'Cormorant Garamond';font-weight:700;font-size:28px;color:var(--gold-soft);line-height:1}
+.tl .ti{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:17px;margin-top:7px}
+.tl .ev{color:var(--on-navy-soft);font-size:13.5px;line-height:1.75;margin-top:7px}
+.req{font-size:11px;color:var(--gold-soft);border:1px dashed rgba(201,162,75,.5);padding:3px 10px;border-radius:18px;display:inline-block;margin-top:10px}
+
+/* milestones cinematic (pinned) */
+.ms{position:relative}
+.ms-stage{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:64px 0}
+.ms-stage>.ms-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.ms-stage>.sec-head,.ms-stage>.ms-grid,.ms-stage>.ms-nav{position:relative;z-index:2}
+.ms-bg .ms-glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;will-change:transform}
+.ms-bg .ms-glow.g1{width:560px;height:560px;background:radial-gradient(circle,rgba(29,59,110,.7),transparent 70%);top:-130px;right:-90px}
+.ms-bg .ms-glow.g2{width:520px;height:520px;background:radial-gradient(circle,rgba(110,35,51,.5),transparent 70%);bottom:-150px;left:-90px}
+.ms-sub{max-width:640px;margin:12px auto 0;color:var(--on-navy-soft);font-size:15.5px;line-height:1.9}
+.ms-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:1140px;margin:18px auto 0;width:100%;padding:0 40px}
+.ms-content{position:relative;min-height:340px}
+.ms-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center}
+.ms-panel .pyr{font-family:'Cormorant Garamond';font-weight:700;font-size:22px;color:var(--gold);letter-spacing:2px}
+.ms-panel .pbadge{align-self:flex-start;font-size:11.5px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.14);border:1px solid rgba(201,162,75,.4);padding:4px 13px;border-radius:30px;margin:14px 0}
+.ms-panel .pbadge.warn{color:var(--gold-soft);background:transparent;border:1px dashed rgba(201,162,75,.55)}
+.ms-panel .pti{font-family:'Noto Kufi Arabic';font-weight:800;color:var(--ivory);font-size:30px;line-height:1.45;margin-bottom:14px}
+.ms-panel .pds{color:var(--on-navy-soft);font-size:16px;line-height:2;max-width:460px}
+.ms-visual{position:relative;display:grid;place-items:center;min-height:360px}
+.ms-seal{position:relative;width:300px;height:300px;z-index:3}
+.ms-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ms-ring .trk{fill:none;stroke:rgba(201,162,75,.16);stroke-width:3}
+.ms-ring .prog{fill:none;stroke:url(#msg);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(201,162,75,.5))}
+.ms-markers{position:absolute;inset:0}
+.ms-markers .mk{position:absolute;width:16px;height:16px;border-radius:50%;background:#0a1d38;border:1px solid var(--gold);transform:translate(-50%,-50%);box-shadow:0 0 0 4px var(--navy-900);transition:.45s}
+.ms-markers .mk.on{background:var(--gold);box-shadow:0 0 0 4px var(--navy-900),0 0 18px rgba(201,162,75,.75);transform:translate(-50%,-50%) scale(1.25)}
+.ms-years{position:absolute;inset:0;display:grid;place-items:center}
+.ms-year{position:absolute;font-family:'Cormorant Garamond';font-weight:700;font-size:74px;color:var(--gold-soft);text-shadow:0 6px 30px rgba(201,162,75,.25)}
+.ms-docs{position:absolute;inset:0;z-index:1;pointer-events:none}
+.ms-docs .mdoc{position:absolute;border-radius:12px;overflow:hidden;border:1px solid var(--line-gold);box-shadow:0 30px 60px -28px #000}
+.ms-docs .mdoc.cert{width:148px;top:6px;left:2px;transform:rotate(-8deg);opacity:.8}
+.ms-docs .mdoc.cert img{display:block;width:100%}
+.ms-docs .mdoc.stamp{width:84px;height:84px;border-radius:50%;bottom:10px;right:6px;background:radial-gradient(circle,#fff,#f3ead5);display:grid;place-items:center}
+.ms-docs .mdoc.stamp img{width:70px;height:70px;border-radius:50%}
+.ms-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.ms-nav button{font-family:'Cormorant Garamond';font-weight:700;font-size:16px;color:var(--on-navy-soft);background:transparent;border:1px solid rgba(201,162,75,.25);border-radius:30px;padding:6px 16px;cursor:pointer;transition:.3s}
+.ms-nav button.on{color:#2a1e07;background:linear-gradient(135deg,var(--gold-soft),var(--gold));border-color:transparent}
+.ms-nav button:hover{border-color:var(--gold)}
+.ms-fallback{min-height:0}
+.ms-fallback .ms-grid{grid-template-columns:1fr}
+.ms-fallback .ms-content{min-height:0;display:flex;flex-direction:column;gap:22px}
+.ms-fallback .ms-panel{position:relative;opacity:1!important;visibility:visible!important;filter:none!important;transform:none!important;background:rgba(16,38,68,.5);border:1px solid rgba(201,162,75,.2);border-radius:14px;padding:18px 20px}
+@media(max-width:980px){
+  .ms-grid{grid-template-columns:1fr;gap:30px}
+  .ms-visual{order:-1;min-height:300px}
+  .ms-seal{width:240px;height:240px}
+  .ms-year{font-size:58px}
+}
+/* ===== Milestone Theatre ===== */
+.mt{position:relative}
+.mt-stage{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:58px 0}
+.mt-stage>*{position:relative;z-index:2}
+.mt-stage>.mt-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.mt-bg .gl{position:absolute;border-radius:50%;filter:blur(85px);opacity:.5;will-change:transform}
+.mt-bg .gl.a{width:600px;height:600px;background:radial-gradient(circle,rgba(29,59,110,.7),transparent 70%);top:-160px;right:-120px}
+.mt-bg .gl.b{width:560px;height:560px;background:radial-gradient(circle,rgba(110,35,51,.5),transparent 70%);bottom:-180px;left:-120px}
+.mt-bg .wm{position:absolute;inset:0;display:grid;place-items:center}
+.mt-wmy{position:absolute;font-family:'Cormorant Garamond';font-weight:700;font-size:clamp(200px,32vw,440px);line-height:1;color:rgba(201,162,75,.06);letter-spacing:-8px}
+.mt-sub{max-width:660px;margin:12px auto 0;color:var(--on-navy-soft);font-size:15.5px;line-height:1.9}
+.mt-grid{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;max-width:1180px;margin:16px auto 0;width:100%;padding:0 40px}
+.mt-grid::after{content:"";position:absolute;top:12%;bottom:12%;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(201,162,75,.4),transparent)}
+.mt-story{position:relative}
+.mt-card{position:relative;min-height:340px;background:linear-gradient(165deg,rgba(247,241,229,.98),rgba(252,248,240,.96));border-radius:18px;box-shadow:0 44px 90px -36px #000,0 0 0 1px var(--line-gold)}
+.mt-card::before{content:"";position:absolute;inset:12px;border:1px solid var(--line-gold);border-radius:11px;pointer-events:none;z-index:3}
+.mt-cc{position:absolute;width:18px;height:18px;border:2px solid var(--gold-deep);z-index:4}
+.mt-cc.a{top:18px;right:18px;border-left:0;border-bottom:0}.mt-cc.b{top:18px;left:18px;border-right:0;border-bottom:0}
+.mt-cc.c{bottom:18px;right:18px;border-left:0;border-top:0}.mt-cc.d{bottom:18px;left:18px;border-right:0;border-top:0}
+.mt-panels{position:absolute;inset:0}
+.mt-panel{position:absolute;inset:0;padding:38px 40px;display:flex;flex-direction:column;justify-content:center}
+.mt-panel .ch{font-family:'Cormorant Garamond';font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:12.5px;color:var(--gold-deep)}
+.mt-panel .yr{font-family:'Cormorant Garamond';font-weight:700;font-size:48px;color:var(--gold-deep);line-height:1;margin:4px 0}
+.mt-panel .ti{font-family:'Noto Kufi Arabic';font-weight:800;color:var(--navy-800);font-size:26px;line-height:1.45;margin:8px 0 12px}
+.mt-panel .ds{color:var(--ink-soft);font-size:15.5px;line-height:1.95;max-width:430px}
+.mt-panel .bg2{align-self:flex-start;margin-top:16px;font-size:11.5px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.14);border:1px solid rgba(201,162,75,.4);padding:5px 14px;border-radius:30px}
+.mt-panel .bg2.warn{background:transparent;border:1px dashed var(--gold-deep);color:#7a5a12}
+.mt-visual{position:relative;min-height:430px;perspective:1300px;display:grid;place-items:center}
+.mt-archive{position:relative;width:100%;height:430px;transform-style:preserve-3d}
+.mt-doc{position:absolute;border-radius:12px;overflow:hidden;border:1px solid var(--line-gold);box-shadow:0 36px 72px -28px #000;backface-visibility:hidden}
+.mt-doc img{display:block;width:100%}
+.mt-doc.cert{width:196px;top:34px;left:48px;transform:rotateY(15deg) rotate(-6deg)}
+.mt-doc.idc{width:238px;bottom:26px;left:-6px;transform:rotateY(11deg) rotate(4deg)}
+.mt-stamp{position:absolute;width:98px;height:98px;border-radius:50%;top:24px;left:-8px;background:radial-gradient(circle,#fff,#f3ead5);display:grid;place-items:center;box-shadow:0 22px 44px -18px #000;z-index:6}
+.mt-stamp img{width:82px;height:82px;border-radius:50%}
+.mt-seal{position:absolute;top:50%;right:4%;transform:translateY(-50%);width:236px;height:236px;z-index:5}
+.mt-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.mt-ring .trk{fill:none;stroke:rgba(201,162,75,.16);stroke-width:3}
+.mt-ring .prog{fill:none;stroke:url(#mtg);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(201,162,75,.55))}
+.mt-fy{position:absolute;inset:0;display:grid;place-items:center}
+.mt-fyear{position:absolute;font-family:'Cormorant Garamond';font-weight:700;font-size:62px;color:var(--gold-soft);text-shadow:0 6px 26px rgba(201,162,75,.3)}
+.mt-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.mt-nav button{font-family:'Cormorant Garamond';font-weight:700;font-size:15px;color:var(--on-navy-soft);background:transparent;border:1px solid rgba(201,162,75,.25);border-radius:30px;padding:6px 15px;cursor:pointer;transition:.3s}
+.mt-nav button.on{color:#2a1e07;background:linear-gradient(135deg,var(--gold-soft),var(--gold));border-color:transparent}
+.mt-nav button:hover{border-color:var(--gold)}
+.mt-fallback{min-height:0}
+.mt-fallback .mt-grid{grid-template-columns:1fr}
+.mt-fallback .mt-grid::after,.mt-fallback .mt-visual{display:none}
+.mt-fallback .mt-card{min-height:0}
+.mt-fallback .mt-panels{position:relative}
+.mt-fallback .mt-panel{position:relative;inset:auto;padding:22px 30px;border-top:1px solid var(--line-gold)}
+.mt-fallback .mt-panel:first-child{border-top:0}
+@media(max-width:980px){
+ .mt-grid{grid-template-columns:1fr;gap:28px}
+ .mt-grid::after{display:none}
+ .mt-visual{order:-1;min-height:360px}
+ .mt-archive{height:360px}
+ .mt-seal{right:50%;transform:translate(50%,-50%);width:200px;height:200px}
+ .mt-doc.cert{left:6%}.mt-doc.idc{left:0}
+ .mt-wmy{font-size:190px}
+}
+/* ladder L1-L8 */
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lev{background:#fffdf8;border:1px solid var(--line-gold);border-radius:14px;padding:22px 18px;position:relative;transition:transform .4s,box-shadow .4s}
+.lev:hover{transform:translateY(-7px);box-shadow:0 26px 46px -26px rgba(12,35,66,.5)}
+.lev .lvl{font-family:'Cormorant Garamond';font-weight:700;font-size:30px;color:var(--gold);line-height:1}
+.lev .nm{font-family:'Noto Kufi Arabic';font-weight:600;color:var(--navy-800);font-size:15.5px;margin-top:8px}
+.lev .n{position:absolute;top:16px;left:16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-gold);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--gold-deep)}
+
+/* logo marquee */
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mtrack{display:flex;gap:46px;width:max-content;animation:marq 34s linear infinite}
+.marquee:hover .mtrack{animation-play-state:paused}
+.mtrack .ml{width:120px;height:120px;border-radius:50%;background:#fbf4e3;border:1px solid var(--line-gold);display:grid;place-items:center;padding:13px;overflow:hidden;flex:none}
+.mtrack .ml img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.mtrack .ml.dark{background:#0d2342;padding:0;border-color:rgba(201,162,75,.5)}
+.mtrack .ml.dark img{mix-blend-mode:normal;object-fit:cover}
+
+/* request form */
+.reqform{max-width:900px;margin:0 auto;background:#fffdf8;border:1px solid var(--line-gold);border-radius:20px;padding:40px 44px;box-shadow:0 30px 70px -34px rgba(12,35,66,.5)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f label{display:block;font-size:13px;font-weight:700;color:var(--navy-800);margin-bottom:7px}
+.f input,.f select,.f textarea{width:100%;padding:13px 15px;border:1px solid rgba(27,34,48,.18);border-radius:10px;font-family:'Tajawal';font-size:14.5px;background:#fff;outline:none;transition:.25s}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.18)}
+.f.full{grid-column:1/-1}
+.reqform .actions{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+.wa{background:#1f7a4d;color:#fff;box-shadow:0 14px 30px -16px rgba(31,122,77,.7)}
+.wa:hover{transform:translateY(-2px)}
+.cfg{font-size:12px;color:var(--ink-soft);margin-top:12px}
+
+/* legal cards */
+.legal{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.lcard{background:var(--navy-850);border:1px solid rgba(201,162,75,.22);border-radius:16px;padding:26px;position:relative;overflow:hidden;transition:transform .4s,border-color .4s}
+.lcard:hover{transform:translateY(-7px);border-color:var(--gold)}
+.lcard .ic{width:54px;height:54px;border-radius:12px;background:rgba(201,162,75,.12);display:grid;place-items:center;margin-bottom:16px;border:1px solid var(--line-gold)}
+.lcard .ic img{width:40px;height:40px;object-fit:contain;border-radius:6px;filter:grayscale(.1)}
+.lcard .ic span{font-family:'Cormorant Garamond';color:var(--gold-soft);font-size:22px;font-weight:700}
+.lcard h5{font-family:'Noto Kufi Arabic';color:var(--ivory);font-size:17px;margin-bottom:8px}
+.lcard p{color:var(--on-navy-soft);font-size:13.5px;line-height:1.8}
+.legal-note{text-align:center;color:var(--on-navy-soft);font-size:13px;margin-top:26px;font-style:italic}
+
+/* partners ready state */
+.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pslot{height:120px;border:1.5px dashed rgba(201,162,75,.45);border-radius:14px;display:grid;place-items:center;text-align:center;color:var(--ink-soft);font-size:13px;background:rgba(255,255,255,.5);transition:.4s}
+.pslot:hover{border-color:var(--gold);background:#fffdf8}
+.pslot b{display:block;font-family:'Cormorant Garamond';font-size:20px;color:var(--gold-deep)}
+
+/* documents carousel */
+.docscroll{display:flex;gap:20px;overflow-x:auto;padding:8px 4px 22px;scroll-snap-type:x mandatory}
+.docscroll::-webkit-scrollbar{height:8px}
+.docscroll::-webkit-scrollbar-thumb{background:var(--line-gold);border-radius:20px}
+.docitem{flex:none;width:230px;scroll-snap-align:center;background:#fff;border:1px solid var(--line-gold);border-radius:12px;padding:10px;box-shadow:0 18px 40px -26px rgba(0,0,0,.5);transition:transform .4s}
+.docitem:hover{transform:translateY(-6px)}
+.docitem img{border-radius:7px;width:100%;height:300px;object-fit:cover;object-position:top}
+.docitem .cap{text-align:center;font-size:13px;color:var(--navy-800);font-weight:600;padding:10px 0 4px}
+
+/* members */
+.mfilter{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.chip{border:1px solid var(--line-gold);background:#fffdf8;color:var(--navy-800);border-radius:30px;padding:8px 18px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.3s}
+.chip:hover,.chip.on{background:var(--navy-800);color:var(--ivory);border-color:var(--navy-800)}
+.members{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.mcard{background:#fff;border:1px solid var(--line-gold);border-radius:14px;padding:10px;box-shadow:0 16px 38px -26px rgba(0,0,0,.4);transition:transform .4s,box-shadow .4s}
+.mcard:hover{transform:translateY(-7px);box-shadow:0 28px 50px -26px rgba(12,35,66,.5)}
+.mcard img{border-radius:9px;width:100%;aspect-ratio:1.6/1;object-fit:cover}
+.mcard .mi{padding:12px 8px 6px;text-align:center}
+.mcard .mi b{font-family:'Noto Kufi Arabic';color:var(--navy-800);font-size:14.5px;display:block}
+.mcard .mi span{font-size:12px;color:var(--ink-soft)}
+
+/* news placeholder */
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ncard{background:#fffdf8;border:1px solid var(--line-gold);border-radius:14px;overflow:hidden;transition:transform .4s}
+.ncard:hover{transform:translateY(-6px)}
+.ncard .ph{height:150px;background:linear-gradient(135deg,#0c2342,#143256);display:grid;place-items:center;color:var(--gold-soft);font-family:'Cormorant Garamond';letter-spacing:2px}
+.ncard .nb{padding:18px}
+.ncard .nb .tag{font-size:11px;color:var(--gold-deep);font-weight:700;letter-spacing:1px}
+.ncard .nb h5{font-family:'Noto Kufi Arabic';color:var(--navy-800);font-size:16px;margin:8px 0}
+.ncard .nb p{color:var(--ink-soft);font-size:13.5px}
+
+/* contact + footer */
+.contact{background:linear-gradient(135deg,#0a1d38,#102a4d);border:1px solid rgba(201,162,75,.25);border-radius:22px;padding:54px;text-align:center;position:relative;overflow:hidden}
+.contact h2{font-family:'Noto Kufi Arabic';color:var(--ivory);font-size:32px;margin-bottom:12px}
+.contact p{color:var(--on-navy-soft);max-width:560px;margin:0 auto 28px;font-size:16px}
+.contact .cta-row{justify-content:center}
+footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;border-top:1px solid rgba(201,162,75,.2)}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;margin-bottom:34px}
+.fcol h6{font-family:'Noto Kufi Arabic';color:var(--gold-soft);font-size:15px;margin-bottom:16px}
+.fcol a{display:block;color:var(--on-navy-soft);font-size:14px;padding:5px 0;transition:.3s}
+.fcol a:hover{color:var(--ivory)}
+.fcol p{font-size:14px;line-height:1.9}
+.fbot{text-align:center;border-top:1px solid rgba(201,162,75,.15);padding-top:22px;font-size:13px;color:#6f7c92}
+
+/* animations */
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-16px) rotate(var(--r,0deg))}}
+@keyframes floatY2{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(14px) rotate(var(--r,0deg))}}
+@keyframes sheen{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-30px)}}
+@keyframes marq{to{transform:translateX(50%)}}
+
+/* responsive */
+@media(max-width:1024px){
+  nav.main{display:none}
+  .hero .wrap,.about{grid-template-columns:1fr}
+  .compo{height:400px;margin-top:20px}
+  .g3,.legal,.news{grid-template-columns:repeat(2,1fr)}
+  .ladder{grid-template-columns:repeat(2,1fr)}
+  .members,.partners{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  .wrap{padding:0 22px}
+  .hero h1{font-size:34px}
+  .vrow,.fg{grid-template-columns:1fr}
+  .g3,.legal,.news,.members,.partners,.ladder{grid-template-columns:1fr}
+  .timeline::before,.timeline::after{right:22px;transform:none}
+  .tl{width:100%;margin-right:0!important;text-align:right!important;padding:8px 62px 8px 6px}
+  .tl:nth-child(odd) .dot,.tl:nth-child(even) .dot{right:-1px;left:auto}
+  .tl .tcard{max-width:none}
+  .contact{padding:34px 22px}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1!important;transform:none!important}
+  .threads path{stroke-dashoffset:0!important}
+  .eb .eb-main,.eb .eb-g1,.eb .eb-g2{filter:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Electric border filter (turbulence + displacement) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="eb-turb" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="6" result="noise1" seed="1" />
+    <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1"><animate attributeName="dy" values="700; 0" dur="4.8s" repeatCount="indefinite" calcMode="linear" /></feOffset>
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="6" result="noise2" seed="1" />
+    <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2"><animate attributeName="dy" values="0; -700" dur="4.8s" repeatCount="indefinite" calcMode="linear" /></feOffset>
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="6" result="noise1b" seed="2" />
+    <feOffset in="noise1b" dx="0" dy="0" result="offsetNoise3"><animate attributeName="dx" values="490; 0" dur="4.8s" repeatCount="indefinite" calcMode="linear" /></feOffset>
+    <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="6" result="noise2b" seed="2" />
+    <feOffset in="noise2b" dx="0" dy="0" result="offsetNoise4"><animate attributeName="dx" values="0; -490" dur="4.8s" repeatCount="indefinite" calcMode="linear" /></feOffset>
+    <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
+    <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
+    <feBlend in="part1" in2="part2" mode="screen" result="combinedNoise" />
+    <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="9" xChannelSelector="R" yChannelSelector="B" />
+  </filter>
+</defs></svg>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="assets/logos/european-board.png" alt="European Board Group">
+      <div><b>مجموعة البورد الأوروبي</b><span>European Board Group</span></div>
+    </a>
+    <nav class="main">
+      <a href="#boards">المنظمات</a>
+      <a href="#verify">التحقق</a>
+      <a href="#accred">الاعتماد</a>
+      <a href="#members">الأعضاء</a>
+      <a href="#legal">الهوية القانونية</a>
+      <a href="#contact">تواصل</a>
+    </nav>
+    <div class="hgroup">
+      <div class="lang" id="lang">EN ⇄ ع</div>
+      <a href="#request" class="btn btn-gold" style="padding:11px 20px;font-size:14px">اطلب اعتمادك</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span>
+    <span class="guilloche"></span>
+    <svg class="threads" viewBox="0 0 1440 800" preserveAspectRatio="none">
+      <defs><linearGradient id="gthread" x1="0" x2="1"><stop offset="0" stop-color="#c9a24b" stop-opacity="0"/><stop offset=".5" stop-color="#e6cd8b"/><stop offset="1" stop-color="#c9a24b" stop-opacity="0"/></linearGradient></defs>
+      <path d="M-50 180 C 300 90, 700 260, 1100 150 S 1500 240 1500 200"/>
+      <path d="M-50 420 C 320 520, 760 360, 1150 470 S 1500 400 1500 440"/>
+      <path d="M-50 640 C 360 560, 720 700, 1120 600 S 1500 660 1500 620"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-left">
+      <div class="eyebrow reveal">منصة الاعتماد والتحقق الدولية</div>
+      <h1 class="reveal">نؤهّل <span class="au">قادة المستقبل</span><br>تحت مظلّة مؤسسية واحدة</h1>
+      <p class="lead reveal">مجموعة البورد الأوروبي — منظومة دولية للتدريب والاعتماد والتحقق من الشهادات والهويات الرسمية، تجمع بوردات وأكاديميات متعددة ضمن معيار واحد للثقة.</p>
+      <div class="cta-row reveal">
+        <a href="#verify" class="btn btn-gold">تحقّق من شهادة <span>←</span></a>
+        <a href="#request" class="btn btn-ghost">اطلب اعتمادك</a>
+      </div>
+      <div class="assur reveal">
+        <div><b>✦</b> تحقّق آمن ومُوثّق</div>
+        <div><b>✦</b> هويات رسمية</div>
+        <div><b>✦</b> اعتماد ضمن المجموعة</div>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="compo" id="compo">
+        <div class="medallion parallax" data-depth="14"><img src="assets/logos/european-board.png" alt="European Board Group"></div>
+        <div class="doc cert parallax" data-depth="26" style="--r:4deg"><img src="assets/certificates/oxford.jpeg" alt="نموذج شهادة"></div>
+        <div class="doc id parallax" data-depth="34" style="--r:-5deg"><img src="assets/identities/oxford.jpeg" alt="نموذج هوية"></div>
+        <div class="doc seal parallax" data-depth="40"><img src="assets/logos/apostille.png" alt="ختم أبوستيل"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERIFY -->
+<div class="verify-band wrap" id="verify">
+  <div class="verify reveal" id="vcard">
+    <span class="vc a"></span><span class="vc b"></span><span class="vc c"></span><span class="vc d"></span>
+    <h3>التحقق من شهادة</h3>
+    <p class="sub">اختر الجهة المُصدِرة وأدخل رقم الشهادة كما هو مطبوع</p>
+    <div class="vrow">
+      <div class="vfield">
+        <label>الجهة المُصدِرة</label>
+        <select>
+          <option>اختر البورد / الأكاديمية…</option>
+          <option>اكسفورد للتدريب والاستشارات</option>
+          <option>البورد الأمريكي البريطاني</option>
+          <option>البورد الطبي الدولي المعتمد</option>
+          <option>أكاديمية كامبردج</option>
+          <option>البورد العراقي المعتمد</option>
+          <option>أكاديمية بلاك أويل</option>
+          <option>بورد الجمال البريطاني</option>
+          <option>مؤسسة سفراء البورد الأوروبي</option>
+          <option>الاتحاد العربي الدولي</option>
+        </select>
+      </div>
+      <div class="vfield">
+        <label>رقم الشهادة</label>
+        <input type="text" placeholder="مثال: 313547">
+      </div>
+    </div>
+    <button class="btn btn-gold">تحقّق الآن</button>
+    <p class="vnote">⚿ البحث يتمّ داخل الجهة المختارة فقط لضمان دقّة النتيجة.</p>
+  </div>
+</div>
+
+<!-- BOARDS -->
+<section class="band sec-ivory" id="boards">
+  <span class="edge-gold edge-top"></span>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">Member Organizations</div>
+      <h2>المنظمات الأعضاء</h2>
+      <p>بوردات وأكاديميات وكيانات تعمل تحت مظلّة مجموعة البورد الأوروبي، لكلٍّ منها صفحته وشهاداته وهوياته.</p>
+      <div class="dv"></div>
+    </div>
+    <div class="grid g3" id="boardgrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="band sec-navy" id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">About the Group</div>
+      <h2>عن مجموعة البورد الأوروبي</h2>
+      <div class="dv"></div>
+    </div>
+    <div class="about">
+      <div class="mv">
+        <div class="mvcard reveal"><h5>رؤيتنا</h5><p>منظومة اعتماد وتحقق أوروبية موثوقة، تصنع قادة وكفاءات بمعايير دولية.</p></div>
+        <div class="mvcard reveal"><h5>رسالتنا</h5><p>تحويل الأفراد إلى قادة، والقادة إلى أيقونات تغيير في مجتمعاتهم ومنظماتهم.</p></div>
+        <div class="mvcard reveal"><h5>أثرنا</h5><p>انطلاقة من العراق وامتداد دولي عبر أكثر من 15 دولة، وإرث يتجاوز 23 عامًا في التأهيل والاعتماد.<br><span class="pending">الأرقام قيد الاعتماد الرسمي قبل النشر</span></p></div>
+      </div>
+      <div class="values">
+        <div class="val reveal eb eb-gold"><b>التميّز</b><span>معايير عالية في كل اعتماد وشهادة.</span></div>
+        <div class="val reveal eb eb-royal"><b>النزاهة</b><span>مصداقية التوثيق والتحقق.</span></div>
+        <div class="val reveal eb eb-emerald"><b>الابتكار</b><span>منصة رقمية حديثة للاعتماد والتحقق.</span></div>
+        <div class="val reveal eb eb-rose"><b>الأثر</b><span>كفاءات تتحوّل إلى قادة فاعلين.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONE THEATRE (pinned cinematic) -->
+<section class="band sec-navy mt" id="impact">
+  <div class="mt-stage" id="mtStage">
+    <div class="mt-bg">
+      <span class="gl a"></span><span class="gl b"></span>
+      <div class="wm" id="mtWm"></div>
+    </div>
+    <div class="sec-head reveal"><div class="kick">Milestones</div><h2>محطّات النجاح</h2><p class="mt-sub">من بداية التأسيس إلى إطلاق المنظومة الرقمية، تروي هذه المحطات كيف تطورت مجموعة البورد الأوروبي من مسار تدريبي إلى منصة مؤسسية للاعتماد والتحقق والهوية القانونية.</p><div class="dv"></div></div>
+    <div class="mt-grid">
+      <div class="mt-story">
+        <div class="mt-card">
+          <span class="mt-cc a"></span><span class="mt-cc b"></span><span class="mt-cc c"></span><span class="mt-cc d"></span>
+          <div class="mt-panels" id="mtPanels"></div>
+        </div>
+      </div>
+      <div class="mt-visual"><div class="mt-archive" id="mtArchive"></div></div>
+    </div>
+    <div class="mt-nav" id="mtNav"></div>
+  </div>
+</section>
+
+<!-- ACCREDITATION LADDER -->
+<section class="band sec-ivory" id="accred">
+  <span class="edge-gold edge-top"></span>
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Accreditation Pathway</div><h2>مستويات الاعتماد · L1 — L8</h2><p>مسار اعتماد احترافي متدرّج من المدرب المعتمد حتى مستشار التدريب الدولي.</p><div class="dv"></div></div>
+    <div class="ladder" id="ladder"></div>
+    <div style="text-align:center;margin-top:38px" class="reveal"><a href="#request" class="btn btn-gold">اطلب اعتمادك ←</a></div>
+  </div>
+</section>
+
+<!-- ACCREDITING ORGS MARQUEE -->
+<section class="band sec-parch" style="padding:54px 0">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:34px"><div class="kick">Accrediting Bodies</div><h2 style="font-size:26px">الجهات المعتمِدة ضمن المجموعة</h2></div>
+  </div>
+  <div class="marquee"><div class="mtrack" id="mtrack"></div></div>
+</section>
+
+<!-- REQUEST -->
+<section class="band sec-navy" id="request">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Request Accreditation</div><h2>اطلب اعتمادك</h2><p>عبّئ الطلب وسنتواصل معك. النموذج جاهز للربط لاحقاً؛ حالياً التواصل عبر واتساب.</p><div class="dv"></div></div>
+    <div class="reqform reveal">
+      <div class="fg">
+        <div class="f"><label>نوع الجهة</label><select><option>مؤسسة تدريبية</option><option>أكاديمية</option><option>مركز تدريبي</option><option>بورد / مجلس</option><option>مدرب / خبير</option><option>جهة تعليمية</option><option>أخرى</option></select></div>
+        <div class="f"><label>نوع / مستوى الاعتماد</label><select><option>L1 – L8 (مدرب)</option><option>اعتماد مؤسسة</option><option>اعتماد أكاديمية</option><option>اعتماد شهادة</option><option>اعتماد مدرب</option><option>اعتماد عضو</option><option>اعتماد برنامج تدريبي</option></select></div>
+        <div class="f"><label>الاسم الكامل</label><input type="text" placeholder="الاسم الثلاثي"></div>
+        <div class="f"><label>اسم المؤسسة / الجهة</label><input type="text" placeholder="اسم الجهة"></div>
+        <div class="f"><label>رقم الهاتف / واتساب</label><input type="text" placeholder="+964 7XX XXX XXXX"></div>
+        <div class="f"><label>الدولة</label><input type="text" placeholder="الدولة"></div>
+        <div class="f full"><label>تفاصيل الطلب</label><textarea rows="3" placeholder="اكتب تفاصيل طلب الاعتماد…"></textarea></div>
+        <div class="f full"><label>ملاحظات إضافية</label><input type="text" placeholder="اختياري"></div>
+      </div>
+      <div class="actions">
+        <a class="btn wa" href="#">تواصل عبر واتساب</a>
+        <button class="btn btn-ghost" style="border-color:rgba(27,34,48,.25);color:var(--navy-800)">إرسال الطلب</button>
+      </div>
+      <p class="cfg">⚙ رقم الواتساب ووجهة الإرسال قابلة للتهيئة — لا يتم حالياً تخزين الطلب في قاعدة بيانات.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL -->
+<section class="band sec-navy" id="legal" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Legal Identity</div><h2>الهوية القانونية والتوثيق الدولي</h2><div class="dv"></div></div>
+    <div class="legal">
+      <div class="lcard reveal"><div class="ic"><span>UK</span></div><h5>الموقع الرسمي ومكتب لندن</h5><p>حضور مؤسسي رسمي للبورد الأوروبي مع مكتب في لندن. <em>(يُؤكَّد العنوان النهائي قبل النشر.)</em></p></div>
+      <div class="lcard reveal"><div class="ic"><img src="assets/logos/apostille.png" alt="apostille"></div><h5>ختم الأبوستيل · اتفاقية لاهاي 1961</h5><p>توثيق دولي وفق اتفاقية لاهاي. <em>تُعرض التفاصيل بعد رفع المستندات الرسمية المعتمدة.</em></p></div>
+      <div class="lcard reveal"><div class="ic"><span>#</span></div><h5>الرمز المرجعي والباركود</h5><p>كل شهادة محميّة برمز مرجعي وباركود/QR للتحقق من صحتها داخل المنصة.</p></div>
+      <div class="lcard reveal"><div class="ic"><span>⚖</span></div><h5>التصديقات الرسمية</h5><p>تصديق وزارة الخارجية والقنصليات. <em>حسب الوثائق المعروضة — يتطلب أصولاً رسمية قبل النشر.</em></p></div>
+      <div class="lcard reveal"><div class="ic"><span>ع/EN</span></div><h5>شهادات ثنائية اللغة</h5><p>تصدر الشهادات باللغتين العربية والإنجليزية بصياغة رسمية موحّدة.</p></div>
+      <div class="lcard reveal"><div class="ic"><span>!</span></div><h5>إفصاح أكاديمي</h5><p>لا تُمنح شهادات دكتوراه أو ماجستير غير مرخّصة؛ الشهادات مهنية تدريبية معتمدة.</p></div>
+    </div>
+    <p class="legal-note">تُعرض كل التفاصيل القانونية بعد اعتماد المستندات الرسمية النهائية.</p>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="band sec-ivory" id="partners">
+  <span class="edge-gold edge-top"></span>
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Success Partners</div><h2>شركاء النجاح</h2><p>المؤسسات العالمية والمحلية التي نعتز بالتعاون معها.</p><div class="dv"></div></div>
+    <div class="partners">
+      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
+      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
+      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
+      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
+    </div>
+    <p class="legal-note" style="color:var(--ink-soft)">القسم جاهز لاستقبال شعارات شركاء موثّقين فور تزويدنا بها — بدون أسماء مفترضة.</p>
+  </div>
+</section>
+
+<!-- DOCUMENTS PREVIEW -->
+<section class="band sec-navy" id="docs">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Certificates & Identities</div><h2>معاينة الشهادات والهويات</h2><p>نماذج رسمية معروضة كما هي دون قص أو تعديل أو ختم فوق الأصل.</p><div class="dv"></div></div>
+  </div>
+  <div class="wrap"><div class="docscroll" id="docscroll"></div></div>
+</section>
+
+<!-- MEMBERS -->
+<section class="band sec-ivory" id="members">
+  <span class="edge-gold edge-top"></span>
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">Members</div><h2>الأعضاء والمدرّبون</h2><p>معرض هويات رسمي — تُعرض البطاقة الأصلية كاملة، وتفاصيلها داخلها.</p><div class="dv"></div></div>
+    <div class="mfilter reveal" id="mfilter"></div>
+    <div class="members" id="membergrid"></div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="band sec-navy" id="news" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kick">News & Courses</div><h2>الأخبار والدورات</h2><p>القسم جاهز لعرض الأخبار والدورات الحقيقية فور توفّرها.</p><div class="dv"></div></div>
+    <div class="news">
+      <div class="ncard reveal"><div class="ph">EUROPEAN BOARD</div><div class="nb"><div class="tag">قريباً</div><h5>مساحة خبر / دورة</h5><p>محتوى حقيقي يُضاف من لوحة التحكم لاحقاً — بدون أخبار مفترضة.</p></div></div>
+      <div class="ncard reveal"><div class="ph">EUROPEAN BOARD</div><div class="nb"><div class="tag">قريباً</div><h5>مساحة خبر / دورة</h5><p>محتوى حقيقي يُضاف من لوحة التحكم لاحقاً — بدون أخبار مفترضة.</p></div></div>
+      <div class="ncard reveal"><div class="ph">EUROPEAN BOARD</div><div class="nb"><div class="tag">قريباً</div><h5>مساحة خبر / دورة</h5><p>محتوى حقيقي يُضاف من لوحة التحكم لاحقاً — بدون أخبار مفترضة.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="band sec-ivory" id="contact">
+  <span class="edge-gold edge-top"></span>
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2>تواصل مع مجموعة البورد الأوروبي</h2>
+      <p>للاستفسار عن الاعتماد أو التحقق من الشهادات والهويات، تواصل معنا مباشرة.</p>
+      <div class="cta-row">
+        <a class="btn wa" href="#">واتساب رسمي <span style="opacity:.85">+964 770 430 6208</span></a>
+        <a class="btn btn-ghost" href="#request" style="border-color:rgba(230,205,139,.6)">اطلب اعتمادك</a>
+      </div>
+      <p class="cfg" style="color:var(--on-navy-soft);margin-top:16px">⚙ أرقام التواصل قابلة للتهيئة — تُعتمد قناة رسمية واحدة قبل النشر.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fcol">
+        <div class="brand" style="margin-bottom:14px"><img src="assets/logos/european-board.png" style="width:46px;height:46px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px"><div><b style="color:var(--ivory);font-family:'Noto Kufi Arabic'">مجموعة البورد الأوروبي</b><span style="color:var(--gold-soft);font-family:'Cormorant Garamond';letter-spacing:2px;font-size:10px">EUROPEAN BOARD GROUP</span></div></div>
+        <p>منظومة دولية للتدريب والاعتماد والتحقق من الشهادات والهويات الرسمية.</p>
+      </div>
+      <div class="fcol"><h6>المنصة</h6><a href="#boards">المنظمات</a><a href="#accred">الاعتماد</a><a href="#members">الأعضاء</a><a href="#docs">الوثائق</a></div>
+      <div class="fcol"><h6>التحقق والقانوني</h6><a href="#verify">التحقق من شهادة</a><a href="#legal">الهوية القانونية</a><a href="#request">اطلب اعتمادك</a></div>
+      <div class="fcol"><h6>تواصل</h6><a href="#contact">واتساب رسمي</a><a href="#contact">البريد الرسمي</a><a href="#contact">مكتب لندن</a></div>
+    </div>
+    <div class="fbot">مجموعة البورد الأوروبي · European Board Group © 2026 — مفهوم تصميم بصري (Concept v2)</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const boards=[
+ {n:"اكسفورد للتدريب والاستشارات",t:"أكاديمية",img:"oxford"},
+ {n:"البورد الأمريكي البريطاني",t:"بورد",img:"american-board"},
+ {n:"البورد الطبي الدولي المعتمد",t:"بورد",img:"medical-board"},
+ {n:"أكاديمية كامبردج للتطوير المهني",t:"أكاديمية",img:"cambridge"},
+ {n:"البورد العراقي المعتمد",t:"بورد",img:"iraqi-board",dark:1},
+ {n:"أكاديمية بلاك أويل المهنية",t:"أكاديمية",img:"black-oil"},
+ {n:"بورد الجمال البريطاني",t:"بورد",img:"beauty-board"},
+ {n:"مؤسسة سفراء البورد الأوروبي",t:"مؤسسة",img:"ambassadors"},
+ {n:"الاتحاد العربي الدولي للتنمية المستدامة",t:"مؤسسة",img:"international-au",dark:1}
+];
+document.getElementById('boardgrid').innerHTML=boards.map(b=>`
+ <div class="board reveal">
+   <div class="lw${b.dark?' dark':''}"><img src="assets/logos/${b.img}.jpeg" alt="${b.n}" loading="lazy"></div>
+   <h4>${b.n}</h4><div class="type">${b.t}</div><br>
+   <a class="lk" href="#">عرض البورد ←</a>
+ </div>`).join('');
+
+document.getElementById('mtrack').innerHTML=(()=>{const items=boards.map(b=>`<div class="ml${b.dark?' dark':''}"><img src="assets/logos/${b.img}.jpeg" loading="lazy"></div>`).join('');return items+items;})();
+
+const levels=[["L1","مدرب معتمد"],["L2","مدرب محترف معتمد"],["L3","مدرب محترف معتمد — PCT"],["L4","مدرب محترف متقدّم"],["L5","مدرب دولي محترف"],["L6","خبير تدريب دولي"],["L7","رئيس خبراء التدريب"],["L8","مستشار تدريب دولي"]];
+document.getElementById('ladder').innerHTML=levels.map((l,i)=>`<div class="lev reveal" style="transition-delay:${i*70}ms"><span class="n">${i+1}</span><div class="lvl">${l[0]}</div><div class="nm">${l[1]}</div></div>`).join('');
+
+const docs=[["certificates/oxford","شهادة — اكسفورد"],["identities/oxford","هوية — اكسفورد"],["certificates/medical","شهادة — البورد الطبي"],["identities/american","هوية — البورد الأمريكي"],["certificates/beauty","شهادة — بورد الجمال"],["identities/cambridge","هوية — كامبردج"],["certificates/iraqi","شهادة — البورد العراقي"],["identities/ambassadors","هوية — السفراء"]];
+document.getElementById('docscroll').innerHTML=docs.map(d=>`<div class="docitem"><img src="assets/${d[0]}.jpeg" alt="${d[1]}" loading="lazy"><div class="cap">${d[1]}</div></div>`).join('');
+
+const members=[["oxford","اكسفورد"],["american","البورد الأمريكي"],["medical","البورد الطبي"],["beauty","بورد الجمال"],["cambridge","كامبردج"],["ambassadors","السفراء"],["international-au","الاتحاد العربي"],["black-oil","بلاك أويل"]];
+document.getElementById('membergrid').innerHTML=members.map(m=>`<div class="mcard reveal"><img src="assets/identities/${m[0]}.jpeg" alt="هوية ${m[1]}" loading="lazy"><div class="mi"><b>عضو معتمد</b><span>${m[1]}</span></div></div>`).join('');
+const fil=["الكل",...[...new Set(members.map(m=>m[1]))]];
+document.getElementById('mfilter').innerHTML=fil.map((f,i)=>`<div class="chip ${i==0?'on':''}">${f}</div>`).join('');
+document.querySelectorAll('#mfilter .chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('#mfilter .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');});
+
+// electric border layers (same hierarchy as electric-border.html)
+document.querySelectorAll('.eb').forEach(card=>{
+  const c=document.createElement('div');c.className='eb-content';
+  while(card.firstChild)c.appendChild(card.firstChild);
+  card.insertAdjacentHTML('afterbegin','<div class="eb-bg"></div><div class="eb-g2"></div><div class="eb-g1"></div><div class="eb-main"></div><div class="eb-ov1"></div><div class="eb-ov2"></div>');
+  card.appendChild(c);
+});
+
+// reveal observer
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// header scroll
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+
+// ===== Milestone Theatre (pinned cinematic, GSAP ScrollTrigger) =====
+const milestones=[
+ {y:"2000",ch:"الفصل الأول",t:"انطلاق المسيرة المؤسسية",d:"بداية التأسيس وبناء المسار المهني الذي مهّد لتشكيل منظومة اعتماد وتطوير متكاملة.",badge:"بداية المسار",cert:"oxford",idc:"oxford"},
+ {y:"2008",ch:"الفصل الثاني",t:"بداية الاعتماد الأوروبي",d:"مرحلة مفصلية في ترسيخ الارتباط بالمعايير الأوروبية وبناء إطار مؤسسي أكثر اتساعاً.",badge:"يتطلب توثيقاً رسمياً قبل النشر",warn:1,cert:"american",idc:"american"},
+ {y:"2012",ch:"الفصل الثالث",t:"تأسيس الكيان التدريبي",d:"إطلاق البنية التشغيلية التي دعمت برامج التدريب والتأهيل ضمن إطار أكثر تنظيماً ووضوحاً.",badge:"مرحلة تأسيس",cert:"cambridge",idc:"cambridge"},
+ {y:"2015",ch:"الفصل الرابع",t:"التوسّع في الحضور الدولي",d:"توسيع نطاق العمل والتعاون مع جهات أوسع، وتعزيز حضور المنظومة في مجالات التدريب والاعتماد.",badge:"توسّع دولي",cert:"medical",idc:"medical"},
+ {y:"2018",ch:"الفصل الخامس",t:"ترسيخ القيادة المؤسسية",d:"مرحلة متقدمة في بناء الهوية المؤسسية وتعزيز الحضور الرسمي للبورد الأوروبي للتدريب وإعداد القادة.",badge:"يتطلب توثيقاً رسمياً قبل النشر",warn:1,cert:"beauty",idc:"beauty"},
+ {y:"2023",ch:"الفصل السادس",t:"إطلاق المنظومة الرقمية",d:"انتقال المنظومة إلى مرحلة رقمية أكثر تكاملاً تجمع بين الشهادات، الهويات، التحقق، الاعتمادات، والهوية القانونية.",badge:"تحوّل رقمي",cert:"iraqi",idc:"international-au"}
+];
+const mtStage=document.getElementById('mtStage');
+if(mtStage){
+  const N=milestones.length;
+  const pwrap=document.getElementById('mtPanels'),wm=document.getElementById('mtWm'),arch=document.getElementById('mtArchive'),nav=document.getElementById('mtNav');
+  pwrap.innerHTML=milestones.map(m=>`<div class="mt-panel"><span class="ch">${m.ch}</span><span class="yr">${m.y}</span><h3 class="ti">${m.t}</h3><p class="ds">${m.d}</p>${m.badge?`<span class="bg2${m.warn?' warn':''}">${m.badge}</span>`:''}</div>`).join('');
+  wm.innerHTML=milestones.map(m=>`<span class="mt-wmy">${m.y}</span>`).join('');
+  arch.innerHTML=milestones.map(m=>`<div class="mt-doc idc"><img loading="lazy" src="assets/identities/${m.idc}.jpeg" alt=""></div>`).join('')
+    +milestones.map(m=>`<div class="mt-doc cert"><img loading="lazy" src="assets/certificates/${m.cert}.jpeg" alt=""></div>`).join('')
+    +`<div class="mt-stamp"><img src="assets/logos/apostille.png" alt=""></div>`
+    +`<div class="mt-seal"><svg class="mt-ring" viewBox="0 0 240 240"><defs><linearGradient id="mtg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#e6cd8b"/><stop offset="1" stop-color="#c9a24b"/></linearGradient></defs><circle class="trk" cx="120" cy="120" r="110"/><circle class="prog" cx="120" cy="120" r="110"/></svg><div class="mt-fy" id="mtFy"></div></div>`;
+  const fy=document.getElementById('mtFy');
+  fy.innerHTML=milestones.map(m=>`<span class="mt-fyear">${m.y}</span>`).join('');
+  nav.innerHTML=milestones.map(m=>`<button>${m.y}</button>`).join('');
+  const panels=[...pwrap.children],wmys=[...wm.children],certs=[...arch.querySelectorAll('.cert')],ids=[...arch.querySelectorAll('.idc')],fyears=[...fy.children],navs=[...nav.children];
+  const ring=arch.querySelector('.mt-ring .prog'),C=2*Math.PI*110;
+  const setRing=v=>{ring.style.strokeDasharray=C;ring.style.strokeDashoffset=C*(1-v);};
+  const setActive=idx=>navs.forEach((b,i)=>b.classList.toggle('on',i===idx));
+  const reduceM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const canPin=window.gsap&&window.ScrollTrigger&&!reduceM&&innerWidth>820;
+  if(canPin){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.set([...panels,...wmys,...certs,...ids,...fyears],{autoAlpha:0});
+    gsap.set(panels,{y:24});gsap.set(fyears,{scale:.9});
+    gsap.set(panels[0],{autoAlpha:1,y:0});gsap.set([wmys[0],certs[0],ids[0]],{autoAlpha:1});gsap.set(fyears[0],{autoAlpha:1,scale:1});
+    setRing(0);setActive(0);
+    const tl=gsap.timeline({scrollTrigger:{trigger:mtStage,start:'top top',end:()=>'+='+(innerHeight*(N-1)*0.95),pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,onUpdate:s=>{setActive(Math.round(s.progress*(N-1)));setRing(s.progress);}}});
+    tl.to('.mt .gl.a',{xPercent:14,yPercent:-10,ease:'none',duration:N-1},0)
+      .to('.mt .gl.b',{xPercent:-12,yPercent:10,ease:'none',duration:N-1},0)
+      .to(arch,{rotationY:-6,ease:'none',duration:N-1},0)
+      .to('.mt-stamp',{rotation:28,ease:'none',duration:N-1},0);
+    for(let i=1;i<N;i++){const p=i-1;
+      tl.to(panels[i-1],{autoAlpha:0,y:-22,filter:'blur(5px)',duration:.5,ease:'power2.in'},p)
+        .to([wmys[i-1],certs[i-1],ids[i-1]],{autoAlpha:0,duration:.5},p)
+        .to(fyears[i-1],{autoAlpha:0,scale:.92,duration:.5},p)
+        .fromTo(panels[i],{autoAlpha:0,y:28,filter:'blur(7px)'},{autoAlpha:1,y:0,filter:'blur(0px)',duration:.5,ease:'power2.out'},p+0.12)
+        .fromTo([wmys[i],certs[i],ids[i]],{autoAlpha:0},{autoAlpha:1,duration:.5},p+0.12)
+        .fromTo(fyears[i],{autoAlpha:0,scale:.9},{autoAlpha:1,scale:1,duration:.5},p+0.12);
+    }
+    navs.forEach((b,i)=>b.addEventListener('click',()=>{const st=tl.scrollTrigger;window.scrollTo({top:st.start+(i/(N-1))*(st.end-st.start)+2,behavior:'smooth'});}));
+    addEventListener('load',()=>ScrollTrigger.refresh());
+  } else {
+    mtStage.classList.add('mt-fallback');
+    panels.forEach(p=>{p.style.opacity=1;p.style.visibility='visible';});
+    setRing(1);setActive(N-1);
+  }
+}
+
+// verify focus
+const vc=document.getElementById('vcard');
+vc.addEventListener('focusin',()=>vc.classList.add('active'));
+vc.addEventListener('focusout',()=>vc.classList.remove('active'));
+
+// hero parallax
+const compo=document.getElementById('compo');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(compo&&!reduce){
+ addEventListener('mousemove',e=>{
+   const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
+   compo.querySelectorAll('.parallax').forEach(p=>{const d=+p.dataset.depth;p.style.transform=`translate(${x*d}px,${y*d}px)`;});
+ });
+}
+
+// lang toggle (visual)
+document.getElementById('lang').onclick=function(){this.textContent=this.textContent.trim().startsWith('EN')?'ع ⇄ EN':'EN ⇄ ع';};
+</script>
+</body>
+</html>

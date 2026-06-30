@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>European Board Group — معاينة الصفحة الرئيسية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Playfair+Display:wght@500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#08182f;
+    --navy-800:#0b2240;
+    --navy-700:#143256;
+    --navy-glass:rgba(18,42,73,.55);
+    --ivory:#f7f1e5;
+    --ivory-2:#fbf7ee;
+    --parchment:#efe7d6;
+    --gold:#c9a24b;
+    --gold-soft:#e3c884;
+    --gold-deep:#a9842f;
+    --burgundy:#6e2333;
+    --royal:#1d3b6e;
+    --ink:#1a1f2b;
+    --ink-soft:#4a5160;
+    --cream-line:rgba(201,162,75,.35);
+    --on-navy:#ece3cf;
+    --on-navy-soft:#b9c2d2;
+    --rad:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Tajawal',sans-serif;
+    color:var(--ink);
+    background:var(--navy-900);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .latin{font-family:'Cormorant Garamond','Playfair Display',serif}
+  .kufi{font-family:'Noto Kufi Arabic',sans-serif}
+
+  /* ============ HEADER ============ */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 48px;
+    background:linear-gradient(180deg,rgba(8,24,47,.92),rgba(8,24,47,.55) 70%,transparent);
+    backdrop-filter:blur(6px);
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{width:46px;height:46px;flex:none}
+  .brand-txt{display:flex;flex-direction:column;line-height:1.1}
+  .brand-txt b{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:18px;letter-spacing:.2px}
+  .brand-txt span{font-size:10.5px;letter-spacing:3px;color:var(--gold-soft);text-transform:uppercase;font-family:'Cormorant Garamond';font-weight:600}
+  nav{display:flex;align-items:center;gap:30px}
+  nav a{position:relative;color:var(--on-navy-soft);text-decoration:none;font-size:15px;font-weight:500;transition:color .3s}
+  nav a::after{content:"";position:absolute;bottom:-7px;right:0;height:1.5px;width:0;background:var(--gold);transition:width .35s ease}
+  nav a:hover{color:var(--ivory)}
+  nav a:hover::after{width:100%}
+  nav a.active{color:var(--ivory)}
+  nav a.active::after{width:100%}
+  .lang{display:flex;align-items:center;gap:8px;border:1px solid rgba(201,162,75,.4);border-radius:40px;padding:5px 12px;color:var(--gold-soft);font-size:13px;font-weight:600;background:rgba(201,162,75,.06);cursor:pointer;transition:.3s}
+  .lang:hover{background:rgba(201,162,75,.14)}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;min-height:100vh;
+    padding:150px 48px 70px;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;
+    background:
+      radial-gradient(900px 520px at 88% 8%,rgba(29,59,110,.55),transparent 60%),
+      radial-gradient(760px 600px at 6% 92%,rgba(110,35,51,.30),transparent 62%),
+      linear-gradient(160deg,#08182f 0%,#0b2240 48%,#0a1d38 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;
+    background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);
+  }
+  .hero::after{
+    content:"";position:absolute;width:540px;height:540px;border:1px solid rgba(201,162,75,.16);border-radius:50%;
+    top:-160px;left:-140px;
+  }
+  .hero-left{position:relative;z-index:2}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    color:var(--gold-soft);font-size:12.5px;letter-spacing:3px;font-weight:600;
+    text-transform:uppercase;font-family:'Cormorant Garamond';margin-bottom:24px;
+    opacity:0;animation:rise .8s .15s forwards;
+  }
+  .eyebrow::before{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .hero h1{
+    font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);
+    font-size:46px;line-height:1.42;letter-spacing:-.2px;margin-bottom:22px;
+    opacity:0;animation:rise .9s .3s forwards;
+  }
+  .hero h1 .accent{color:var(--gold-soft)}
+  .hero p.lead{
+    color:var(--on-navy-soft);font-size:17.5px;line-height:1.95;max-width:560px;margin-bottom:38px;font-weight:400;
+    opacity:0;animation:rise .9s .45s forwards;
+  }
+  .cta-row{display:flex;gap:16px;opacity:0;animation:rise .9s .6s forwards}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:46px;font-size:15.5px;font-weight:700;text-decoration:none;cursor:pointer;transition:.35s;font-family:'Tajawal'}
+  .btn-gold{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#2a1e07;box-shadow:0 14px 34px -12px rgba(201,162,75,.6)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(201,162,75,.75)}
+  .btn-ghost{border:1px solid rgba(201,162,75,.45);color:var(--gold-soft);background:transparent}
+  .btn-ghost:hover{background:rgba(201,162,75,.1);border-color:var(--gold)}
+
+  .trust-strip{display:flex;gap:30px;margin-top:50px;opacity:0;animation:rise .9s .75s forwards}
+  .trust-strip div{display:flex;align-items:center;gap:9px;color:var(--on-navy-soft);font-size:13.5px}
+  .trust-strip i{color:var(--gold);font-style:normal;font-size:16px}
+
+  /* ============ VERIFY CARD ============ */
+  .verify-wrap{position:relative;z-index:2;opacity:0;animation:rise 1s .55s forwards}
+  .verify{
+    position:relative;background:linear-gradient(165deg,rgba(247,241,229,.98),rgba(251,247,238,.96));
+    border-radius:18px;padding:38px 36px 34px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.65),0 0 0 1px rgba(201,162,75,.25);
+  }
+  .verify::before{content:"";position:absolute;inset:11px;border:1px solid var(--cream-line);border-radius:10px;pointer-events:none}
+  .corner{position:absolute;width:20px;height:20px;border:2px solid var(--gold-deep);z-index:3}
+  .corner.tl{top:18px;right:18px;border-left:0;border-bottom:0}
+  .corner.tr{top:18px;left:18px;border-right:0;border-bottom:0}
+  .corner.bl{bottom:18px;right:18px;border-left:0;border-top:0}
+  .corner.br{bottom:18px;left:18px;border-right:0;border-top:0}
+  .verify-head{text-align:center;margin-bottom:26px;position:relative}
+  .verify-head .seal{width:54px;height:54px;margin:0 auto 12px}
+  .verify-head h3{font-family:'Noto Kufi Arabic';font-weight:700;font-size:21px;color:var(--navy-800)}
+  .verify-head p{font-size:13px;color:var(--ink-soft);margin-top:6px}
+  .verify-head .rule{width:60px;height:2px;background:var(--gold);margin:14px auto 0;position:relative}
+  .verify-head .rule::before,.verify-head .rule::after{content:"";position:absolute;top:50%;width:5px;height:5px;background:var(--gold);border-radius:50%;transform:translateY(-50%)}
+  .verify-head .rule::before{right:-12px}.verify-head .rule::after{left:-12px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:700;color:var(--navy-800);margin-bottom:8px}
+  .field select,.field input{
+    width:100%;padding:14px 16px;border:1px solid rgba(26,31,43,.18);border-radius:10px;
+    font-family:'Tajawal';font-size:15px;color:var(--ink);background:#fffdf8;transition:.25s;outline:none;
+  }
+  .field select:focus,.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.18)}
+  .field input::placeholder{color:#9a9384}
+  .verify .btn-gold{width:100%;justify-content:center;margin-top:8px;font-size:16px;padding:15px}
+  .verify-note{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .verify-note i{color:var(--gold-deep);font-style:normal}
+
+  /* ============ SHOWCASE ============ */
+  .showcase{background:linear-gradient(180deg,var(--ivory) 0%,var(--ivory-2) 100%);padding:84px 48px 96px;position:relative}
+  .showcase::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .sec-head{text-align:center;margin-bottom:52px}
+  .sec-head .kick{color:var(--gold-deep);font-size:12px;letter-spacing:4px;font-weight:700;text-transform:uppercase;font-family:'Cormorant Garamond'}
+  .sec-head h2{font-family:'Noto Kufi Arabic';font-weight:700;font-size:34px;color:var(--navy-800);margin-top:10px}
+  .sec-head p{color:var(--ink-soft);font-size:16px;margin-top:12px;max-width:540px;margin-inline:auto;line-height:1.8}
+  .sec-head .divider{width:70px;height:2px;background:var(--gold);margin:18px auto 0}
+  .boards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1180px;margin:0 auto}
+  .board-card{
+    position:relative;background:#fffdf8;border:1px solid rgba(201,162,75,.28);border-radius:var(--rad);
+    padding:30px 24px 26px;text-align:center;transition:.4s cubic-bezier(.2,.7,.3,1);overflow:hidden;
+  }
+  .board-card::before{content:"";position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold),var(--gold-soft));transform:scaleX(0);transition:transform .4s}
+  .board-card:hover{transform:translateY(-8px);box-shadow:0 30px 50px -26px rgba(11,34,64,.5);border-color:var(--gold)}
+  .board-card:hover::before{transform:scaleX(1)}
+  .monogram{
+    width:74px;height:74px;margin:0 auto 18px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond';font-weight:700;font-size:27px;letter-spacing:1px;
+    color:var(--gold-deep);background:linear-gradient(160deg,#fbf3df,#f3e6c6);
+    border:1px solid rgba(201,162,75,.5);position:relative;
+  }
+  .monogram::after{content:"";position:absolute;inset:6px;border:1px solid rgba(201,162,75,.4);border-radius:50%}
+  .board-card h4{font-family:'Noto Kufi Arabic';font-weight:600;font-size:17px;color:var(--navy-800);margin-bottom:6px}
+  .board-card .type{display:inline-block;font-size:11.5px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.12);padding:4px 12px;border-radius:30px;margin-bottom:14px;letter-spacing:.5px}
+  .board-card .desc{font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:18px;min-height:44px}
+  .board-link{color:var(--navy-700);font-weight:700;font-size:13.5px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.3s}
+  .board-link:hover{color:var(--gold-deep);gap:10px}
+
+  footer{background:var(--navy-900);color:var(--on-navy-soft);text-align:center;padding:30px;font-size:13px;border-top:1px solid rgba(201,162,75,.2)}
+
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;padding-top:130px}
+    nav{display:none}
+    .boards{grid-template-columns:repeat(2,1fr)}
+    .hero h1{font-size:34px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="47" stroke="#c9a24b" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="40" stroke="#c9a24b" stroke-width=".6" opacity=".5"/>
+      <path d="M50 20 L72 33 V58 C72 72 62 80 50 84 C38 80 28 72 28 58 V33 Z" fill="rgba(201,162,75,.10)" stroke="#c9a24b" stroke-width="1.4"/>
+      <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="30" font-weight="700" fill="#e3c884">EB</text>
+    </svg>
+    <div class="brand-txt">
+      <b>مجموعة البورد الأوروبي</b>
+      <span>European Board Group</span>
+    </div>
+  </div>
+  <nav>
+    <a href="#" class="active">الرئيسية</a>
+    <a href="#boards">المنظمات</a>
+    <a href="#">التحقق</a>
+    <a href="#">الأعضاء</a>
+    <a href="#">الاعتماد</a>
+    <a href="#">الأخبار</a>
+    <a href="#">تواصل</a>
+  </nav>
+  <div class="lang">EN ⇄ ع</div>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">منصة الاعتماد والتحقق الدولية</div>
+    <h1>مظلّة مؤسسية تجمع البوردات والأكاديميات تحت <span class="accent">معيار واحد للثقة</span></h1>
+    <p class="lead">تحقّق من الشهادات والهويات الرسمية، واستكشف المنظمات الأعضاء، ضمن منظومة موحّدة تديرها مجموعة البورد الأوروبي — بشفافية ومعيار دولي.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#verify">تحقّق من شهادة <span>←</span></a>
+      <a class="btn btn-ghost" href="#boards">استكشف المنظمات</a>
+    </div>
+    <div class="trust-strip">
+      <div><i>✦</i> تحقّق آمن ومُوثّق</div>
+      <div><i>✦</i> هويات رسمية</div>
+      <div><i>✦</i> اعتماد ضمن المجموعة</div>
+    </div>
+  </div>
+
+  <div class="verify-wrap" id="verify">
+    <div class="verify">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="verify-head">
+        <svg class="seal" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="44" stroke="#a9842f" stroke-width="2"/>
+          <circle cx="50" cy="50" r="36" stroke="#c9a24b" stroke-width="1" stroke-dasharray="2 3"/>
+          <path d="M37 50 l9 9 l18 -20" stroke="#a9842f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <h3>التحقق من شهادة</h3>
+        <p>أدخل بيانات الشهادة للتحقق من صحتها رسميًا</p>
+        <div class="rule"></div>
+      </div>
+      <div class="field">
+        <label>الجهة المُصدِرة</label>
+        <select>
+          <option>اختر البورد / الأكاديمية…</option>
+          <option>أكاديمية أكسفورد — Oxford</option>
+          <option>البورد الأمريكي — American Board</option>
+          <option>البورد الطبي — Medical Board</option>
+          <option>أكاديمية كامبردج — Cambridge</option>
+          <option>البورد العراقي — Iraqi Board</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>رقم الشهادة</label>
+        <input type="text" placeholder="مثال: 313547" />
+      </div>
+      <a class="btn btn-gold" href="#">تحقّق الآن</a>
+      <div class="verify-note"><i>⚿</i> البحث يتمّ داخل الجهة المختارة فقط لضمان الدقّة.</div>
+    </div>
+  </div>
+</section>
+
+<section class="showcase" id="boards">
+  <div class="sec-head">
+    <div class="kick">Member Organizations</div>
+    <h2>المنظمات الأعضاء</h2>
+    <p>كيانات وأكاديميات وبوردات تعمل تحت مظلّة مجموعة البورد الأوروبي، لكلٍّ منها صفحته وشهاداته وهوياته.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="boards">
+    <div class="board-card">
+      <div class="monogram">OX</div>
+      <h4>أكاديمية أكسفورد</h4>
+      <div class="type">أكاديمية</div>
+      <p class="desc">جهة تدريب واعتماد دولية عضو في المجموعة.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">AB</div>
+      <h4>البورد الأمريكي</h4>
+      <div class="type">بورد</div>
+      <p class="desc">جهة اعتماد وشهادات مهنية ضمن المجموعة.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">MB</div>
+      <h4>البورد الطبي</h4>
+      <div class="type">بورد</div>
+      <p class="desc">اعتمادات وهويات في المجال الطبي والتدريبي.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">CB</div>
+      <h4>أكاديمية كامبردج</h4>
+      <div class="type">أكاديمية</div>
+      <p class="desc">برامج ودورات معتمدة عضو في المجموعة.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">IB</div>
+      <h4>البورد العراقي</h4>
+      <div class="type">بورد</div>
+      <p class="desc">جهة اعتماد وشهادات محلية ودولية.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">AU</div>
+      <h4>الاتحاد العربي الدولي</h4>
+      <div class="type">مؤسسة</div>
+      <p class="desc">اتحاد للتنمية والاعتماد ضمن المجموعة.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">BB</div>
+      <h4>بورد الجمال</h4>
+      <div class="type">بورد</div>
+      <p class="desc">اعتمادات وهويات في مجال التجميل والعناية.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+    <div class="board-card">
+      <div class="monogram">BO</div>
+      <h4>بلاك أويل</h4>
+      <div class="type">جهة اعتماد</div>
+      <p class="desc">كيان متخصّص عضو في مجموعة البورد الأوروبي.</p>
+      <a class="board-link" href="#">عرض البورد ←</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  مجموعة البورد الأوروبي · European Board Group © 2026 — معاينة تصميم (Concept)
+</footer>
+
+</body>
+</html>
