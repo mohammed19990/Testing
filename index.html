@@ -15,6 +15,8 @@
   --burgundy:#6e2333; --royal:#1d3b6e;
   --ink:#1b2230; --ink-soft:#535b6b; --on-navy:#ece3cf; --on-navy-soft:#aeb9cb;
   --line-gold:rgba(201,162,75,.34);
+  --document-frame:#071528; --document-frame-2:#0b203a;
+  --frame-gold:#c9a24b; --frame-gold-soft:#e2c879; --frame-ivory:#fffaf0;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -35,18 +37,44 @@ a{text-decoration:none;color:inherit}
 .btn-ghost:hover{background:rgba(230,205,139,.12);border-color:var(--gold-soft);transform:translateY(-2px)}
 
 /* ---------- header ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .4s,box-shadow .4s,padding .4s;padding:16px 0}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
-header.scrolled{background:rgba(7,22,43,.92);backdrop-filter:blur(10px);box-shadow:0 10px 30px -18px #000;padding:8px 0}
-.brand{display:flex;align-items:center;gap:13px}
-.brand img{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px}
-.brand b{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:17px;display:block;line-height:1.2}
-.brand span{font-family:'Cormorant Garamond';font-weight:600;letter-spacing:3px;font-size:10px;color:var(--gold-soft);text-transform:uppercase}
-nav.main{display:flex;gap:26px}
-nav.main a{color:var(--on-navy-soft);font-size:14.5px;font-weight:500;position:relative;padding:4px 0;transition:color .3s}
-nav.main a::after{content:"";position:absolute;bottom:0;right:0;height:1.5px;width:0;background:var(--gold);transition:width .35s}
+header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .4s,box-shadow .4s,padding .4s;padding:18px 0}
+header .wrap{max-width:1600px;display:flex;align-items:center;justify-content:space-between;gap:clamp(18px,3vw,56px);padding-inline:clamp(20px,3.4vw,56px)}
+header.scrolled{background:rgba(7,22,43,.92);backdrop-filter:blur(10px);box-shadow:0 10px 30px -18px #000;padding:10px 0}
+.brand{display:flex;align-items:center;gap:13px;flex:none;min-width:max-content;margin-right:10px}
+.brand img{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px;flex:none}
+.brand b{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:16.5px;display:block;line-height:1.25;white-space:nowrap}
+.brand span{font-family:'Cormorant Garamond';font-weight:600;letter-spacing:2.6px;font-size:9.5px;color:var(--gold-soft);text-transform:uppercase;white-space:nowrap}
+nav.main{display:none;align-items:center;justify-content:center;gap:clamp(9px,1.05vw,22px);flex:1;white-space:nowrap;min-width:0}
+nav.main a{color:var(--on-navy-soft);font-size:12.5px;font-weight:500;position:relative;padding:4px 0;transition:color .3s}
+nav.main a::after{content:"";position:absolute;bottom:0;right:0;height:1px;width:0;background:var(--gold);transition:width .35s}
 nav.main a:hover{color:var(--ivory)}nav.main a:hover::after{width:100%}
-.hgroup{display:flex;align-items:center;gap:14px}
+nav.main a.active{color:var(--ivory)}nav.main a.active::after{width:100%}
+section[id],div[id]{scroll-margin-top:110px}
+.hgroup{display:flex;align-items:center;gap:10px;flex:none;min-width:max-content}
+
+/* mobile/tablet nav toggle + RTL drawer */
+.nav-toggle{width:42px;height:42px;border-radius:10px;border:1px solid rgba(201,162,75,.35);background:rgba(255,255,255,.03);display:grid;place-items:center;cursor:pointer;flex:none;transition:.3s}
+.nav-toggle:hover{border-color:var(--gold)}
+.nav-toggle svg{width:20px;height:20px;fill:none;stroke:var(--gold-soft);stroke-width:1.8;stroke-linecap:round}
+.nav-backdrop{position:fixed;inset:0;background:rgba(4,10,20,.62);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .4s;z-index:150}
+.nav-backdrop.open{opacity:1;pointer-events:auto}
+.nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,84vw);background:linear-gradient(165deg,#0a1d38,#071427);border-left:1px solid rgba(201,162,75,.3);box-shadow:-24px 0 64px -20px rgba(0,0,0,.65);z-index:151;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;padding:24px 22px;overflow-y:auto}
+.nav-drawer.open{transform:translateX(0)}
+.nav-drawer .dr-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex:none}
+.nav-drawer .dr-brand{display:flex;align-items:center;gap:10px}
+.nav-drawer .dr-brand img{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px}
+.nav-drawer .dr-brand b{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:14px;display:block}
+.dr-close{width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,162,75,.35);background:rgba(255,255,255,.04);color:var(--ivory);display:grid;place-items:center;cursor:pointer;transition:.3s;font-size:15px;flex:none}
+.dr-close:hover{border-color:var(--gold);color:var(--gold-soft)}
+.nav-drawer nav{display:flex;flex-direction:column;gap:2px}
+.nav-drawer nav a{display:flex;align-items:center;min-height:46px;padding:0 8px;color:var(--on-navy-soft);font-size:15px;font-weight:600;border-bottom:1px solid rgba(201,162,75,.12);transition:color .3s,padding-right .3s}
+.nav-drawer nav a:hover,.nav-drawer nav a.active{color:var(--gold-soft);padding-right:14px}
+.nav-drawer .dr-foot{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:14px;flex:none}
+.nav-drawer .dr-foot .btn{justify-content:center;width:100%}
+.nav-drawer .dr-lang{align-self:flex-start}
+@media(min-width:1500px){nav.main{display:flex}.nav-toggle,.nav-backdrop,.nav-drawer{display:none}}
+@media(max-width:480px){.hgroup .lang,.hgroup>a.btn-gold{display:none}}
+@media(max-width:360px){.brand span{display:none}}
 .lang{border:1px solid rgba(230,205,139,.4);border-radius:40px;padding:6px 13px;color:var(--gold-soft);font-size:13px;font-weight:700;cursor:pointer;background:rgba(230,205,139,.05);transition:.3s}
 .lang:hover{background:rgba(230,205,139,.15)}
 
@@ -81,7 +109,7 @@ nav.main a:hover{color:var(--ivory)}nav.main a:hover::after{width:100%}
 .compo{position:relative;height:480px}
 .medallion{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,#0e2748,#0a1d38 72%);display:grid;place-items:center;z-index:2;box-shadow:0 0 0 1px var(--line-gold),0 30px 70px -30px #000;animation:floatY 7s ease-in-out infinite}
 .medallion::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(201,162,75,.45);animation:spin 40s linear infinite}
-.medallion img{width:192px;height:192px;border-radius:50%;object-fit:contain;background:#0b1f3a;padding:4px}
+.medallion img{width:218px;height:218px;border-radius:50%;object-fit:contain;background:#0b1f3a;padding:3px}
 .doc{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 26px 60px -24px rgba(0,0,0,.75);border:1px solid var(--line-gold);background:#fff;will-change:transform}
 .doc::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-130%);animation:sheen 5.5s ease-in-out infinite}
 .doc.cert{width:188px;top:8px;right:0;transform:rotate(4deg);animation:floatY 8s ease-in-out infinite}
@@ -113,7 +141,7 @@ section.band{position:relative;padding:96px 0}
 .reveal.in{opacity:1;transform:none}
 
 /* ---------- verification ---------- */
-.verify-band{margin-top:-66px;position:relative;z-index:6}
+.verify-band{margin-top:-96px;position:relative;z-index:6}
 .verify{max-width:760px;margin:0 auto;background:linear-gradient(165deg,#f9f4e9,#fdfaf3);border-radius:20px;padding:40px 44px;position:relative;box-shadow:0 44px 90px -34px rgba(0,0,0,.6),0 0 0 1px var(--line-gold);transition:box-shadow .4s}
 .verify.active{box-shadow:0 44px 90px -30px rgba(0,0,0,.6),0 0 0 2px var(--gold)}
 .verify::before{content:"";position:absolute;inset:12px;border:1px solid var(--line-gold);border-radius:13px;pointer-events:none}
@@ -123,9 +151,21 @@ section.band{position:relative;padding:96px 0}
 .verify h3{font-family:'Noto Kufi Arabic';font-weight:700;font-size:22px;text-align:center;color:var(--navy-800)}
 .verify .sub{text-align:center;color:var(--ink-soft);font-size:13.5px;margin-top:6px;margin-bottom:24px}
 .vrow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vrow-single{grid-template-columns:1fr}
 .vfield label{display:block;font-size:13px;font-weight:700;color:var(--navy-800);margin-bottom:7px}
 .vfield select,.vfield input{width:100%;padding:14px 15px;border:1px solid rgba(27,34,48,.18);border-radius:10px;font-family:'Tajawal';font-size:15px;background:#fffdf8;outline:none;transition:.25s}
 .vfield select:focus,.vfield input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.2)}
+.vpicker{margin-top:16px;text-align:right;display:none}
+.vpicker.show{display:block}
+.vpicker .vp-h{font-size:12.5px;font-weight:700;color:var(--navy-800);margin-bottom:9px}
+.vp-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffdf8;border:1px solid rgba(27,34,48,.14);border-radius:10px;padding:10px 14px;margin-bottom:8px;cursor:pointer;transition:.25s}
+.vp-item:hover{border-color:var(--gold);box-shadow:0 6px 16px -10px rgba(0,0,0,.3)}
+.vp-item b{font-size:13.5px;color:var(--navy-800)}
+.vp-item span{font-size:11.5px;color:var(--ink-soft)}
+.vresult{margin-top:16px;text-align:right;background:#fffdf8;border:1px solid rgba(201,162,75,.4);border-radius:10px;padding:14px 16px;display:none}
+.vresult.show{display:block}
+.vresult b{color:var(--navy-800);font-size:14.5px;display:block;margin-bottom:4px}
+.vresult span{color:var(--ink-soft);font-size:12.5px}
 .verify .btn-gold{width:100%;justify-content:center;margin-top:20px;padding:15px}
 .vnote{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:13px}
 
@@ -145,6 +185,40 @@ section.band{position:relative;padding:96px 0}
 .board .type{display:inline-block;font-size:11px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.13);padding:4px 12px;border-radius:30px;margin-bottom:13px}
 .board .lk{color:var(--navy-700);font-weight:700;font-size:13.5px;display:inline-flex;gap:6px;align-items:center;transition:.3s}
 .board:hover .lk{color:var(--gold-deep);gap:10px}
+/* orbit (hero) */
+.orbit{display:flex;justify-content:center;padding:14px 0 4px}
+.hero-orbit{padding:0}
+.hero-orbit .orbit-core{width:470px;height:470px;max-width:92vw;max-height:92vw}
+.hero-orbit .orbit-center{width:150px;height:150px}
+.hero-orbit .orbit-center img{width:130px;height:130px}
+.hero-orbit .orbit-item{width:100px;height:100px;margin:-50px 0 0 -50px}
+@media(max-width:1024px){.hero-orbit .orbit-core{width:400px;height:400px}}
+@media(max-width:600px){.hero-orbit .orbit-item{width:72px;height:72px;margin:-36px 0 0 -36px}}
+@media(max-width:420px){.hero-orbit .orbit-item{width:58px;height:58px;margin:-29px 0 0 -29px}}
+.orbit-core{position:relative;width:560px;height:560px;max-width:90vw;max-height:90vw}
+.orbit-ring{position:absolute;border-radius:50%}
+.orbit-ring.r1{inset:6%;border:1px dashed rgba(201,162,75,.28)}
+.orbit-ring.r2{inset:24%;border:1px solid rgba(201,162,75,.12)}
+.orbit-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:158px;height:158px;border-radius:50%;background:radial-gradient(circle,#0e2748,#0a1d38 72%);border:1px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 46px rgba(201,162,75,.22),0 24px 56px -22px #000;z-index:5}
+.orbit-center::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:1px dashed rgba(201,162,75,.45);animation:spin 38s linear infinite}
+.orbit-center img{width:138px;height:138px;border-radius:50%;object-fit:contain;background:#0b1f3a;padding:3px}
+.orbit-spin{position:absolute;inset:0;animation:spin 50s linear infinite;z-index:3}
+.orbit:hover .orbit-spin,.orbit:hover .orbit-item{animation-play-state:paused}
+.orbit-item{position:absolute;width:114px;height:114px;margin:-57px 0 0 -57px;animation:spin-rev 50s linear infinite}
+.oi{position:relative;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#fffdf8,#f4ecd9);border:1px solid var(--line-gold);display:grid;place-items:center;padding:13px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(12,35,66,.5);transition:transform .4s,box-shadow .4s}
+.oi img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.orbit-item.dark .oi{background:radial-gradient(circle,#12294a,#0a1d38);padding:0}
+.orbit-item.dark .oi img{mix-blend-mode:normal;object-fit:cover}
+.orbit-item:hover .oi{transform:scale(1.14);box-shadow:0 0 0 1px var(--gold),0 16px 38px -16px rgba(12,35,66,.7)}
+.orbit-item .olbl{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:700;color:var(--gold-soft);background:rgba(8,24,47,.9);border:1px solid rgba(201,162,75,.3);padding:3px 10px;border-radius:20px;opacity:0;transition:.3s;pointer-events:none}
+.orbit-item:hover .olbl{opacity:1}
+@keyframes spin-rev{to{transform:rotate(-360deg)}}
+@media(max-width:600px){
+ .orbit-core{width:340px;height:340px}
+ .orbit-center{width:104px;height:104px}.orbit-center img{width:90px;height:90px}
+ .orbit-item{width:78px;height:78px;margin:-39px 0 0 -39px}
+ .oi{padding:8px}
+}
 
 /* about */
 .about{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
@@ -159,7 +233,7 @@ section.band{position:relative;padding:96px 0}
 .val span{font-size:13.5px;color:var(--on-navy-soft)}
 .pending{display:inline-block;font-size:11px;font-weight:700;color:#7a5a12;background:rgba(201,162,75,.2);border:1px dashed var(--gold-deep);padding:3px 10px;border-radius:20px;margin-top:8px}
 /* electric border — same layer structure as electric-border.html (gold theme) */
-.eb{--ebc:var(--gold);--ebl:var(--gold-soft);position:relative;isolation:isolate}
+.eb{--ebc:var(--gold);--ebl:var(--gold-soft);position:relative;isolation:isolate;overflow:hidden}
 .eb-content{position:relative;z-index:3}
 .eb .eb-main,.eb .eb-g1,.eb .eb-g2,.eb .eb-ov1,.eb .eb-ov2,.eb .eb-bg{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
 .eb .eb-main{border:2px solid var(--ebc);filter:url(#eb-turb);z-index:2}
@@ -271,8 +345,8 @@ section.band{position:relative;padding:96px 0}
 .mt-doc img{display:block;width:100%}
 .mt-doc.cert{width:196px;top:34px;left:48px;transform:rotateY(15deg) rotate(-6deg)}
 .mt-doc.idc{width:238px;bottom:26px;left:-6px;transform:rotateY(11deg) rotate(4deg)}
-.mt-stamp{position:absolute;width:98px;height:98px;border-radius:50%;top:24px;left:-8px;background:radial-gradient(circle,#fff,#f3ead5);display:grid;place-items:center;box-shadow:0 22px 44px -18px #000;z-index:6}
-.mt-stamp img{width:82px;height:82px;border-radius:50%}
+.mt-stamp{position:absolute;width:98px;height:98px;border-radius:50%;top:24px;left:-8px;background:radial-gradient(circle,#fffaf0,#f2e9d2);border:1px solid var(--frame-gold-soft);display:grid;place-items:center;box-shadow:0 22px 44px -18px rgba(0,0,0,.6),inset 0 0 0 3px rgba(201,162,75,.16);z-index:6}
+.mt-stamp img{width:100%;height:100%;object-fit:contain;padding:11px;border-radius:50%}
 .mt-seal{position:absolute;top:50%;right:4%;transform:translateY(-50%);width:236px;height:236px;z-index:5}
 .mt-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .mt-ring .trk{fill:none;stroke:rgba(201,162,75,.16);stroke-width:3}
@@ -307,6 +381,63 @@ section.band{position:relative;padding:96px 0}
 .lev .nm{font-family:'Noto Kufi Arabic';font-weight:600;color:var(--navy-800);font-size:15.5px;margin-top:8px}
 .lev .n{position:absolute;top:16px;left:16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-gold);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--gold-deep)}
 
+/* ===== Accreditation Gateway (replaces the old request form) ===== */
+.ag-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;margin-bottom:60px}
+.ag-lead{color:var(--on-navy-soft);font-size:16.5px;line-height:2;margin-bottom:18px;max-width:520px}
+.ag-cta-txt{color:var(--on-navy);font-size:15px;line-height:1.9;margin-bottom:22px;max-width:480px}
+.ag-wa{flex-direction:column;align-items:flex-start;gap:3px;padding:16px 30px;animation:agGlow 3.2s ease-in-out infinite}
+.ag-wa b{font-family:'Cormorant Garamond';font-weight:700;font-size:15px;letter-spacing:.5px;direction:ltr}
+@keyframes agGlow{0%,100%{box-shadow:0 14px 32px -14px rgba(201,162,75,.6)}50%{box-shadow:0 16px 42px -10px rgba(201,162,75,.9)}}
+.ag-note{color:var(--on-navy-soft);font-size:12.5px;margin-top:14px}
+.ag-visual{display:grid;place-items:center;perspective:1200px;padding:20px 0}
+.ag-seal{position:relative;width:340px;height:340px;transform-style:preserve-3d;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.ag-halo{position:absolute;inset:-50px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,75,.32),transparent 70%);filter:blur(28px);animation:haloPulse 4.6s ease-in-out infinite;z-index:0}
+@keyframes haloPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.09)}}
+.ag-sweep{position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 78%,rgba(230,205,139,.5) 90%,transparent 100%);filter:blur(3px);mix-blend-mode:screen;opacity:.75;animation:spin 7s linear infinite;z-index:1}
+.ag-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);z-index:2}
+.ag-ring-outer{animation:spin 90s linear infinite}
+.ag-ring .trk{fill:none;stroke:rgba(201,162,75,.16);stroke-width:3}
+.ag-ring .prog{fill:none;stroke:url(#agg);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(201,162,75,.5));stroke-dasharray:691;stroke-dashoffset:120}
+.ag-ring-dash{animation:spin 34s linear infinite reverse;z-index:2}
+.ag-ring-dash circle{fill:none;stroke:rgba(230,205,139,.5);stroke-width:1.4;stroke-dasharray:3 7}
+.ag-nodes{position:absolute;inset:0;animation:spin 26s linear infinite;z-index:3}
+.ag-node{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--gold-soft);box-shadow:0 0 9px 2px rgba(230,205,139,.85)}
+.ag-glass{position:absolute;inset:26px;border-radius:50%;border:1px solid rgba(230,205,139,.22);backdrop-filter:blur(2px);background:rgba(255,255,255,.02);z-index:3;pointer-events:none}
+.ag-seal-core{position:absolute;inset:44px;border-radius:50%;background:radial-gradient(circle,#12294a,#0a1d38 72%);border:1px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 46px rgba(201,162,75,.24),inset 0 0 28px rgba(0,0,0,.4);z-index:4;transition:box-shadow .5s;animation:emblemFloat 4.4s ease-in-out infinite}
+.ag-seal-core img{width:70%;height:70%;border-radius:50%;object-fit:contain;background:#0b1f3a;padding:5px}
+@keyframes emblemFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.ag-seal.boost .ag-nodes{animation-duration:15s}
+.ag-seal.boost .ag-sweep{animation-duration:4s;opacity:1}
+.ag-seal.boost .ag-halo{opacity:1;transform:scale(1.12)}
+.ag-seal.boost .ag-seal-core{box-shadow:0 0 62px rgba(201,162,75,.42),inset 0 0 28px rgba(0,0,0,.4)}
+@media(max-width:680px){.ag-seal{width:260px;height:260px}}
+.ag-h3{font-family:'Noto Kufi Arabic';font-weight:800;font-size:25px;color:var(--ivory)}
+.ag-intro{color:var(--on-navy-soft);font-size:15.5px;line-height:1.95;max-width:640px;margin:14px auto 0}
+.ag-intro2{color:var(--on-navy-soft);font-size:14px;line-height:1.9;max-width:620px;margin:8px auto 0;opacity:.85}
+.ag-ladder-wrap,.ag-proof-wrap,.ag-legalize-wrap{margin-top:60px}
+.ag-trust-row{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:34px}
+.ag-trust-row span{color:var(--gold-soft);font-size:13.5px;font-weight:600}
+/* ministries / consulates cards */
+.minz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.minz-card{position:relative;background:linear-gradient(165deg,rgba(16,38,68,.6),rgba(10,29,56,.6));border:1px solid rgba(201,162,75,.22);border-radius:14px;padding:18px 16px;text-align:center;overflow:hidden;
+  opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),border-color .4s,box-shadow .4s}
+.minz-card.in{opacity:1;transform:translateY(0)}
+.minz-card::before{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);transform:scaleX(0);transition:transform .5s}
+.minz-card:hover{border-color:var(--gold);box-shadow:0 20px 40px -24px rgba(0,0,0,.6)}
+.minz-card:hover::before{transform:scaleX(1)}
+.minz-mark{width:58px;height:58px;margin:0 auto 12px;border-radius:14px;background:linear-gradient(165deg,rgba(16,38,68,.75),rgba(8,20,38,.85));border:1px solid rgba(201,162,75,.4);display:grid;place-items:center;padding:6px;overflow:hidden;box-shadow:inset 0 2px 6px rgba(0,0,0,.4),0 6px 14px -8px rgba(0,0,0,.5);transition:transform .4s,border-color .4s}
+.minz-mark img{width:100%;height:100%;object-fit:cover;border-radius:8px;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.minz-card:hover .minz-mark{border-color:var(--gold-soft)}
+.minz-card:hover .minz-mark{transform:scale(1.1)}
+.minz-name{font-family:'Noto Kufi Arabic';font-weight:600;color:var(--ivory);font-size:13.5px;line-height:1.5;margin-bottom:9px;min-height:38px}
+.minz-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.14);border:1px solid rgba(201,162,75,.3);padding:3px 10px;border-radius:20px}
+.minz-badge .dot{width:5px;height:5px;border-radius:50%;background:#4fae7a;transition:transform .4s}
+.minz-card:hover .minz-badge .dot{animation:dotPulse 1s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.6)}}
+@media(max-width:900px){.ag-grid{grid-template-columns:1fr}.ag-visual{order:-1}}
+@media(max-width:1024px){.minz-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.minz-grid{grid-template-columns:1fr}}
+
 /* logo marquee */
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .mtrack{display:flex;gap:46px;width:max-content;animation:marq 34s linear infinite}
@@ -330,41 +461,187 @@ section.band{position:relative;padding:96px 0}
 
 /* legal cards */
 .legal{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.lcard{background:var(--navy-850);border:1px solid rgba(201,162,75,.22);border-radius:16px;padding:26px;position:relative;overflow:hidden;transition:transform .4s,border-color .4s}
-.lcard:hover{transform:translateY(-7px);border-color:var(--gold)}
-.lcard .ic{width:54px;height:54px;border-radius:12px;background:rgba(201,162,75,.12);display:grid;place-items:center;margin-bottom:16px;border:1px solid var(--line-gold)}
-.lcard .ic img{width:40px;height:40px;object-fit:contain;border-radius:6px;filter:grayscale(.1)}
+.lcard{background:linear-gradient(165deg,rgba(20,44,78,.7),rgba(10,29,56,.75));border:1px solid rgba(201,162,75,.22);border-radius:18px;padding:28px;position:relative;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 0 30px rgba(0,0,0,.25);transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .45s,box-shadow .45s}
+.lcard::before{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);transform:scaleX(0);transition:transform .5s}
+.lcard:hover{transform:translateY(-8px) scale(1.012);border-color:var(--gold);box-shadow:0 30px 54px -26px rgba(0,0,0,.6),inset 0 0 30px rgba(0,0,0,.25)}
+.lcard:hover::before{transform:scaleX(1)}
+.lcard .ic{width:58px;height:58px;border-radius:13px;background:rgba(201,162,75,.12);display:grid;place-items:center;margin-bottom:16px;border:1px solid var(--line-gold);transition:transform .4s}
+.lcard:hover .ic{transform:scale(1.08)}
 .lcard .ic span{font-family:'Cormorant Garamond';color:var(--gold-soft);font-size:22px;font-weight:700}
-.lcard h5{font-family:'Noto Kufi Arabic';color:var(--ivory);font-size:17px;margin-bottom:8px}
-.lcard p{color:var(--on-navy-soft);font-size:13.5px;line-height:1.8}
+.lcard .ic svg{width:26px;height:26px;fill:none;stroke:var(--gold-soft);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lcard .ic.seal{width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,#fffaf0,#f2e9d2);border:1px solid var(--frame-gold-soft);box-shadow:0 14px 30px -14px rgba(0,0,0,.55),inset 0 0 0 3px rgba(201,162,75,.2)}
+.lcard .ic.seal img{width:100%;height:100%;object-fit:contain;padding:11px;border-radius:50%}
+.lcard h5{font-family:'Noto Kufi Arabic';color:var(--ivory);font-size:17.5px;margin-bottom:9px}
+.lcard p{color:var(--on-navy-soft);font-size:13.5px;line-height:1.85}
+.lcard.featured{grid-column:1/-1;display:flex;align-items:center;gap:28px;padding:32px 34px}
+.lcard.featured .ic.seal{width:130px;height:130px;flex:none;margin-bottom:0}
+.lcard.featured .txt h5{font-size:19px}
+.lcard.featured .txt p{max-width:640px}
+@media(max-width:680px){.lcard.featured{flex-direction:column;text-align:center;gap:16px}.lcard.featured .txt p{max-width:none}}
 .legal-note{text-align:center;color:var(--on-navy-soft);font-size:13px;margin-top:26px;font-style:italic}
 
-/* partners ready state */
-.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.pslot{height:120px;border:1.5px dashed rgba(201,162,75,.45);border-radius:14px;display:grid;place-items:center;text-align:center;color:var(--ink-soft);font-size:13px;background:rgba(255,255,255,.5);transition:.4s}
-.pslot:hover{border-color:var(--gold);background:#fffdf8}
-.pslot b{display:block;font-family:'Cormorant Garamond';font-size:20px;color:var(--gold-deep)}
+/* ===== Success Partners — premium 3D carousel (scoped, adapted interaction only) ===== */
+.partners-carousel{position:relative;height:400px;max-width:1100px;margin:0 auto;perspective:1200px}
+.partners-track{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d}
+.partner-card{position:absolute;width:230px;height:300px;border-radius:18px;overflow:hidden;cursor:pointer;
+  background:linear-gradient(165deg,rgba(18,41,74,.9),rgba(8,20,38,.94));border:1px solid rgba(201,162,75,.3);
+  box-shadow:0 26px 50px -20px rgba(0,0,0,.6);transition:transform .7s cubic-bezier(.22,.7,.3,1),opacity .7s cubic-bezier(.22,.7,.3,1),box-shadow .5s,border-color .5s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 18px}
+.partner-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.partner-mark{width:74px;height:74px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,75,.16),rgba(201,162,75,.04));border:1px solid rgba(201,162,75,.4);display:grid;place-items:center;margin-bottom:16px;flex:none;overflow:hidden}
+.partner-mark svg{width:30px;height:30px;fill:none;stroke:var(--gold-soft);stroke-width:1.5}
+.partner-mark.has-logo{background:radial-gradient(circle,#fbf7ee,#efe6d3)}
+.partner-mark img{width:100%;height:100%;object-fit:contain;padding:9px;border-radius:50%}
+.partner-name{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--ivory);font-size:15.5px;margin-bottom:8px}
+.partner-desc{color:var(--on-navy-soft);font-size:12px;line-height:1.7;margin-bottom:12px}
+.partner-badge{font-size:10.5px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.14);border:1px solid rgba(201,162,75,.32);padding:3px 12px;border-radius:20px}
+.partner-card--center{z-index:10;box-shadow:0 40px 70px -22px rgba(0,0,0,.65),0 0 0 1px var(--gold),0 0 30px -6px rgba(201,162,75,.4);border-color:var(--gold-soft)}
+.partner-card--center .partner-mark{background:radial-gradient(circle,rgba(201,162,75,.3),rgba(201,162,75,.08))}
+.partner-card--l1{transform:translateX(190px) scale(.88) translateZ(-100px);opacity:.85;z-index:5}
+.partner-card--l2{transform:translateX(360px) scale(.72) translateZ(-260px);opacity:.55;z-index:1}
+.partner-card--r1{transform:translateX(-190px) scale(.88) translateZ(-100px);opacity:.85;z-index:5}
+.partner-card--r2{transform:translateX(-360px) scale(.72) translateZ(-260px);opacity:.55;z-index:1}
+.partner-card--hidden{opacity:0;pointer-events:none;transform:scale(.6) translateZ(-400px)}
+.partners-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(201,162,75,.1);border:1px solid rgba(201,162,75,.4);color:var(--gold-soft);
+  display:grid;place-items:center;cursor:pointer;font-size:22px;z-index:20;transition:.3s}
+.partners-arrow:hover{background:rgba(201,162,75,.22);border-color:var(--gold)}
+.partners-arrow--prev{right:-6px}
+.partners-arrow--next{left:-6px}
+.partners-dots{display:flex;justify-content:center;gap:9px;margin-top:30px}
+.partners-dots button{width:9px;height:9px;padding:0;border-radius:50%;border:1px solid rgba(201,162,75,.5);background:transparent;cursor:pointer;transition:.3s}
+.partners-dots button[aria-current="true"]{background:var(--gold);transform:scale(1.3);border-color:var(--gold)}
+@media(prefers-reduced-motion:reduce){.partner-card{transition:opacity .3s}}
+@media(max-width:1024px){
+  .partners-carousel{height:340px}
+  .partner-card{width:190px;height:250px}
+  .partner-card--l1{transform:translateX(130px) scale(.86) translateZ(-90px)}
+  .partner-card--l2{transform:translateX(240px) scale(.7) translateZ(-220px)}
+  .partner-card--r1{transform:translateX(-130px) scale(.86) translateZ(-90px)}
+  .partner-card--r2{transform:translateX(-240px) scale(.7) translateZ(-220px)}
+}
+@media(max-width:680px){
+  .partners-carousel{height:auto;perspective:none;padding:6px 44px}
+  .partners-track{display:flex;position:static;transform-style:flat;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;justify-content:flex-start;padding:8px 4px 14px;-webkit-overflow-scrolling:touch}
+  .partners-track::-webkit-scrollbar{height:6px}
+  .partners-track::-webkit-scrollbar-thumb{background:rgba(201,162,75,.35);border-radius:20px}
+  .partner-card{position:relative;flex:none;width:200px;height:260px;scroll-snap-align:center;transform:none!important;opacity:1!important;z-index:1!important}
+  .partner-card--center{box-shadow:0 30px 54px -22px rgba(0,0,0,.6),0 0 0 1px var(--gold)}
+  .partners-arrow{width:38px;height:38px;font-size:19px}
+  .partners-arrow--prev{right:0}
+  .partners-arrow--next{left:0}
+}
 
-/* documents carousel */
-.docscroll{display:flex;gap:20px;overflow-x:auto;padding:8px 4px 22px;scroll-snap-type:x mandatory}
-.docscroll::-webkit-scrollbar{height:8px}
-.docscroll::-webkit-scrollbar-thumb{background:var(--line-gold);border-radius:20px}
-.docitem{flex:none;width:230px;scroll-snap-align:center;background:#fff;border:1px solid var(--line-gold);border-radius:12px;padding:10px;box-shadow:0 18px 40px -26px rgba(0,0,0,.5);transition:transform .4s}
-.docitem:hover{transform:translateY(-6px)}
-.docitem img{border-radius:7px;width:100%;height:300px;object-fit:cover;object-position:top}
-.docitem .cap{text-align:center;font-size:13px;color:var(--navy-800);font-weight:600;padding:10px 0 4px}
+/* ===== Document showcase (premium 3-layer card + modal, v2 motion) ===== */
+.docgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;perspective:1400px}
+.doccard{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;background:linear-gradient(165deg,#fffdf8,#faf4e6);border-radius:18px;border:1px solid var(--line-gold);
+  box-shadow:0 22px 48px -30px rgba(0,0,0,.5);overflow:hidden;cursor:pointer;transform-style:preserve-3d;will-change:transform;
+  opacity:0;transform:translateY(34px) scale(.96);filter:blur(6px);
+  transition:opacity .8s cubic-bezier(.2,.7,.2,1),filter .8s cubic-bezier(.2,.7,.2,1),box-shadow .5s,border-color .5s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.doccard.in{opacity:1;filter:blur(0px);transform:translateY(0) scale(1) rotateX(var(--rx)) rotateY(var(--ry))}
+.doccard::before{content:"";position:absolute;inset:-1px;border-radius:19px;pointer-events:none;z-index:3;opacity:0;transition:opacity .5s;
+  background:radial-gradient(220px 220px at var(--mx) var(--my),rgba(230,205,139,.35),transparent 60%)}
+.doccard:hover{box-shadow:0 40px 76px -26px rgba(12,35,66,.6),0 0 0 1px var(--gold),0 0 30px -6px rgba(201,162,75,.4);border-color:var(--gold);animation:none}
+.doccard:hover::before{opacity:1}
+.doccard:not(:hover){animation:cardBreathe 6s ease-in-out infinite}
+.doccard:nth-child(odd):not(:hover){animation-delay:-2s}
+@keyframes cardBreathe{0%,100%{box-shadow:0 22px 48px -30px rgba(0,0,0,.5),0 0 0 rgba(201,162,75,0)}50%{box-shadow:0 26px 54px -28px rgba(0,0,0,.52),0 0 22px -8px rgba(201,162,75,.28)}}
+.doc-frame{position:relative;margin:14px 14px 0;padding:3px;border-radius:13px;overflow:hidden;
+  background:linear-gradient(155deg,var(--document-frame),var(--document-frame-2));
+  box-shadow:inset 0 0 0 1px rgba(201,162,75,.3),inset 0 10px 26px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.03);
+  transform:translateZ(20px);transition:box-shadow .5s}
+.doccard:hover .doc-frame{box-shadow:inset 0 0 0 1px var(--frame-gold-soft),inset 0 10px 26px rgba(0,0,0,.4),0 0 22px -4px rgba(201,162,75,.45)}
+.doc-frame .bevel{position:absolute;inset:3px;border-radius:10px;border:1px solid var(--frame-gold);opacity:.55;pointer-events:none;z-index:2;transition:opacity .5s,border-color .5s}
+.doccard:hover .doc-frame .bevel{opacity:.9;border-color:var(--frame-gold-soft)}
+.doc-frame .mat{position:relative;padding:14px;display:flex;align-items:center;justify-content:center;min-height:250px;overflow:hidden;
+  background:var(--frame-ivory);border-radius:8px;margin:3px;box-shadow:inset 0 2px 8px rgba(0,0,0,.08)}
+.doc-frame img{width:100%;height:216px;object-fit:contain;border-radius:4px;background:#fff;transition:transform .5s cubic-bezier(.2,.7,.2,1);will-change:transform;box-shadow:0 2px 10px rgba(7,21,40,.12)}
+.doc-frame .sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%);transform:translateX(-140%) rotate(4deg);pointer-events:none;z-index:2}
+.doccard:hover .doc-frame .sheen{animation:sheenSweep .9s cubic-bezier(.3,.6,.2,1)}
+@keyframes sheenSweep{to{transform:translateX(140%) rotate(4deg)}}
+.doc-meta{padding:16px 18px 20px;text-align:center;transform:translateZ(14px);transition:transform .4s}
+.doc-meta .dtype{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold-deep);text-transform:uppercase}
+.doc-meta .dname{font-family:'Noto Kufi Arabic';font-weight:700;color:var(--navy-800);font-size:15.5px;margin:6px 0 10px;transition:transform .4s}
+.doccard:hover .doc-meta .dname{transform:translateY(-2px)}
+.doc-badge{display:inline-block;font-size:11px;font-weight:700;color:var(--gold-deep);background:rgba(201,162,75,.13);border:1px solid rgba(201,162,75,.35);padding:4px 13px;border-radius:30px;transition:background .4s,box-shadow .4s}
+.doccard:hover .doc-badge{background:rgba(201,162,75,.24);box-shadow:0 0 0 1px rgba(201,162,75,.4)}
+/* document lightbox — image-first premium viewer */
+.doc-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:22px}
+.doc-modal.open{display:flex}
+.doc-modal .dm-bg{position:absolute;inset:0;background:rgba(4,10,20,.86);backdrop-filter:blur(8px);opacity:0;transition:opacity .4s}
+.doc-modal.open .dm-bg{opacity:1}
+.dm-panel{position:relative;z-index:2;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;
+  opacity:0;transform:scale(.94) translateY(18px);transition:opacity .5s cubic-bezier(.16,.8,.24,1),transform .5s cubic-bezier(.16,.8,.24,1)}
+.doc-modal.open .dm-panel{opacity:1;transform:scale(1) translateY(0)}
+.dm-head{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:14px}
+.dm-title{color:var(--ivory);font-family:'Noto Kufi Arabic';font-weight:700;font-size:16px}
+.dm-title small{display:block;font-family:'Cormorant Garamond';color:var(--gold-soft);font-weight:600;letter-spacing:2px;font-size:11px;text-transform:uppercase;margin-bottom:2px}
+.dm-close{width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,162,75,.4);background:rgba(255,255,255,.04);color:var(--ivory);display:grid;place-items:center;cursor:pointer;transition:.3s;font-size:16px}
+.dm-close:hover{border-color:var(--gold);background:rgba(201,162,75,.14)}
+.dm-stage{position:relative;width:100%;max-width:90vw;border-radius:16px;background:linear-gradient(155deg,var(--document-frame),var(--document-frame-2));
+  border:1px solid rgba(201,162,75,.3);box-shadow:0 50px 100px -40px rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:22px;overflow:hidden}
+.dm-stage img{max-width:100%;max-height:85vh;object-fit:contain;border-radius:8px;background:var(--frame-ivory);padding:12px;box-shadow:0 20px 46px -20px rgba(0,0,0,.6);
+  cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.doc-modal.open .dm-stage img{animation:dmImgIn .55s cubic-bezier(.16,.8,.24,1)}
+.dm-stage img.zoomed{cursor:zoom-out;transform:scale(1.6)}
+@keyframes dmImgIn{from{transform:scale(.92);opacity:.4}to{transform:scale(1);opacity:1}}
+.dm-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+@media(max-width:680px){.dm-stage{max-width:100%}.dm-stage img{max-height:64vh}}
+.doccard.wide{grid-column:span 2}
+.doccard.wide .doc-frame .mat{min-height:340px}
+.doccard.wide .doc-frame img{height:320px}
+@media(max-width:1024px){.docgrid{grid-template-columns:repeat(2,1fr)}.doccard.wide{grid-column:span 2}}
+@media(max-width:680px){.docgrid{grid-template-columns:1fr}.doccard.wide{grid-column:span 1}}
 
 /* members */
 .mfilter{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
 .chip{border:1px solid var(--line-gold);background:#fffdf8;color:var(--navy-800);border-radius:30px;padding:8px 18px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.3s}
 .chip:hover,.chip.on{background:var(--navy-800);color:var(--ivory);border-color:var(--navy-800)}
-.members{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.mcard{background:#fff;border:1px solid var(--line-gold);border-radius:14px;padding:10px;box-shadow:0 16px 38px -26px rgba(0,0,0,.4);transition:transform .4s,box-shadow .4s}
-.mcard:hover{transform:translateY(-7px);box-shadow:0 28px 50px -26px rgba(12,35,66,.5)}
-.mcard img{border-radius:9px;width:100%;aspect-ratio:1.6/1;object-fit:cover}
-.mcard .mi{padding:12px 8px 6px;text-align:center}
+.members{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;perspective:1300px}
+
+/* ===== premium member/identity card ===== */
+.mcard{position:relative;background:linear-gradient(165deg,#fffdf8,#faf4e6);border:1px solid var(--line-gold);border-radius:16px;padding:12px;cursor:pointer;overflow:hidden;
+  transform-style:preserve-3d;will-change:transform;box-shadow:0 16px 38px -26px rgba(0,0,0,.4);
+  opacity:0;transform:translateY(28px) scale(.97);filter:blur(4px);
+  transition:opacity .7s cubic-bezier(.2,.7,.2,1),filter .7s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .45s}
+.mcard.in{opacity:1;filter:blur(0);transform:translateY(0) scale(1) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.mcard.filtered-out{opacity:0!important;transform:scale(.92)!important;pointer-events:none;position:absolute;visibility:hidden}
+.mcard:hover{box-shadow:0 34px 60px -26px rgba(12,35,66,.55),0 0 0 1px var(--gold);border-color:var(--gold)}
+.mcard .mframe{position:relative;border-radius:11px;overflow:hidden;background:linear-gradient(155deg,var(--document-frame),var(--document-frame-2));padding:3px}
+.mcard .mframe .mmat{background:var(--frame-ivory);border-radius:8px;margin:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:150px}
+.mcard img{width:100%;height:190px;object-fit:contain;background:#fff;display:block;image-rendering:-webkit-optimize-contrast}
+.mcard .mhint{position:absolute;inset:3px;border-radius:11px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;
+  background:linear-gradient(0deg,rgba(7,21,40,.28),transparent 45%);opacity:0;transition:opacity .4s;z-index:3;pointer-events:none}
+.mcard:hover .mhint{opacity:1}
+.mcard .mhint .zoom-orb{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(230,205,139,.55);
+  display:grid;place-items:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);transition:transform .4s}
+.mcard:hover .mhint .zoom-orb{transform:translate(-50%,-50%) scale(1)}
+.mcard .mhint svg{width:18px;height:18px;fill:none;stroke:var(--gold-soft);stroke-width:1.7}
+.mcard .mi{padding:13px 8px 6px;text-align:center}
 .mcard .mi b{font-family:'Noto Kufi Arabic';color:var(--navy-800);font-size:14.5px;display:block}
 .mcard .mi span{font-size:12px;color:var(--ink-soft)}
+
+/* ===== members preview modal (image-first) ===== */
+.mv-modal{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;padding:26px}
+.mv-modal.open{display:flex}
+.mv-modal .mv-bg{position:absolute;inset:0;background:rgba(4,10,20,.82);backdrop-filter:blur(6px);opacity:0;transition:opacity .4s}
+.mv-modal.open .mv-bg{opacity:1}
+.mv-panel{position:relative;z-index:2;max-width:1040px;width:100%;max-height:92vh;display:flex;flex-direction:column;align-items:center;
+  opacity:0;transform:scale(.92) translateY(20px);transition:opacity .5s cubic-bezier(.16,.8,.24,1),transform .5s cubic-bezier(.16,.8,.24,1)}
+.mv-modal.open .mv-panel{opacity:1;transform:scale(1) translateY(0)}
+.mv-head{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:14px}
+.mv-title{color:var(--ivory);font-family:'Noto Kufi Arabic';font-weight:700;font-size:16px}
+.mv-title small{display:block;font-family:'Cormorant Garamond';color:var(--gold-soft);font-weight:600;letter-spacing:2px;font-size:11px;text-transform:uppercase;margin-bottom:2px}
+.mv-close{width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,162,75,.4);background:rgba(255,255,255,.04);color:var(--ivory);display:grid;place-items:center;cursor:pointer;transition:.3s;font-size:16px}
+.mv-close:hover{border-color:var(--gold);background:rgba(201,162,75,.14)}
+.mv-stage{position:relative;width:100%;flex:1;min-height:0;border-radius:16px;background:linear-gradient(155deg,var(--document-frame),var(--document-frame-2));
+  border:1px solid rgba(201,162,75,.3);box-shadow:0 50px 100px -40px rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:22px;overflow:hidden}
+.mv-stage img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:8px;background:var(--frame-ivory);padding:10px;box-shadow:0 20px 46px -20px rgba(0,0,0,.6);
+  cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.mv-stage img.zoomed{cursor:grab;transform:scale(1.7)}
+.mv-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+@media(max-width:1024px){.members{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.members{grid-template-columns:1fr}.mv-stage img{max-height:64vh}}
 
 /* news placeholder */
 .news{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -401,18 +678,17 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
 
 /* responsive */
 @media(max-width:1024px){
-  nav.main{display:none}
   .hero .wrap,.about{grid-template-columns:1fr}
   .compo{height:400px;margin-top:20px}
   .g3,.legal,.news{grid-template-columns:repeat(2,1fr)}
   .ladder{grid-template-columns:repeat(2,1fr)}
-  .members,.partners{grid-template-columns:repeat(2,1fr)}
+  .members{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:680px){
   .wrap{padding:0 22px}
   .hero h1{font-size:34px}
   .vrow,.fg{grid-template-columns:1fr}
-  .g3,.legal,.news,.members,.partners,.ladder{grid-template-columns:1fr}
+  .g3,.legal,.news,.members,.ladder{grid-template-columns:1fr}
   .timeline::before,.timeline::after{right:22px;transform:none}
   .tl{width:100%;margin-right:0!important;text-align:right!important;padding:8px 62px 8px 6px}
   .tl:nth-child(odd) .dot,.tl:nth-child(even) .dot{right:-1px;left:auto}
@@ -425,6 +701,14 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
   .reveal{opacity:1!important;transform:none!important}
   .threads path{stroke-dashoffset:0!important}
   .eb .eb-main,.eb .eb-g1,.eb .eb-g2{filter:none!important}
+  .doccard{opacity:1!important;transform:none!important}
+  .doc-frame .sheen{display:none!important}
+  .dm-panel{opacity:1!important;transform:none!important}
+  .minz-card{opacity:1!important;transform:none!important}
+  .ag-seal{transform:none!important}
+  .ag-sweep,.ag-halo{opacity:.5!important}
+  .mcard{opacity:1!important;transform:none!important;filter:none!important}
+  .mv-panel{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
@@ -444,34 +728,66 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
     <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
     <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
     <feBlend in="part1" in2="part2" mode="screen" result="combinedNoise" />
-    <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="9" xChannelSelector="R" yChannelSelector="B" />
+    <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="12" xChannelSelector="R" yChannelSelector="B" />
   </filter>
 </defs></svg>
 
 <!-- HEADER -->
 <header id="hdr">
   <div class="wrap">
-    <a class="brand" href="#top">
+    <a class="brand" href="#home">
       <img src="assets/logos/european-board.png" alt="European Board Group">
       <div><b>مجموعة البورد الأوروبي</b><span>European Board Group</span></div>
     </a>
     <nav class="main">
-      <a href="#boards">المنظمات</a>
-      <a href="#verify">التحقق</a>
-      <a href="#accred">الاعتماد</a>
+      <a href="#home">الرئيسية</a>
+      <a href="#documents">الشهادات والهويات</a>
+      <a href="#about">عن المجموعة</a>
       <a href="#members">الأعضاء</a>
-      <a href="#legal">الهوية القانونية</a>
+      <a href="#accrediting-organizations">الجهات المعتمدة</a>
+      <a href="#request-accreditation">اطلب اعتمادك</a>
+      <a href="#legal-recognition">التوثيق القانوني</a>
+      <a href="#partners">شركاء النجاح</a>
       <a href="#contact">تواصل</a>
     </nav>
     <div class="hgroup">
       <div class="lang" id="lang">EN ⇄ ع</div>
-      <a href="#request" class="btn btn-gold" style="padding:11px 20px;font-size:14px">اطلب اعتمادك</a>
+      <a href="#request-accreditation" class="btn btn-gold" style="padding:10px 20px;font-size:13.5px">اطلب اعتمادك</a>
+      <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navDrawer">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
+<div class="nav-backdrop" id="navBackdrop" data-navclose="1"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="القائمة الرئيسية">
+  <div class="dr-head">
+    <div class="dr-brand">
+      <img src="assets/logos/european-board.png" alt="European Board Group">
+      <b>مجموعة البورد الأوروبي</b>
+    </div>
+    <button class="dr-close" id="drClose" data-navclose="1" aria-label="إغلاق القائمة">✕</button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="#home">الرئيسية</a>
+    <a href="#documents">الشهادات والهويات</a>
+    <a href="#about">عن المجموعة</a>
+    <a href="#members">الأعضاء</a>
+    <a href="#accrediting-organizations">الجهات المعتمدة</a>
+    <a href="#request-accreditation">اطلب اعتمادك</a>
+    <a href="#legal-recognition">التوثيق القانوني</a>
+    <a href="#partners">شركاء النجاح</a>
+    <a href="#contact">تواصل</a>
+  </nav>
+  <div class="dr-foot">
+    <div class="lang dr-lang">EN ⇄ ع</div>
+    <a href="#request-accreditation" class="btn btn-gold" data-navclose="1">اطلب اعتمادك</a>
+  </div>
+</div>
+
 <!-- HERO -->
-<section class="hero" id="top">
+<section class="hero" id="home">
   <div class="hero-bg">
     <span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span>
     <span class="guilloche"></span>
@@ -489,7 +805,7 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
       <p class="lead reveal">مجموعة البورد الأوروبي — منظومة دولية للتدريب والاعتماد والتحقق من الشهادات والهويات الرسمية، تجمع بوردات وأكاديميات متعددة ضمن معيار واحد للثقة.</p>
       <div class="cta-row reveal">
         <a href="#verify" class="btn btn-gold">تحقّق من شهادة <span>←</span></a>
-        <a href="#request" class="btn btn-ghost">اطلب اعتمادك</a>
+        <a href="#request-accreditation" class="btn btn-ghost">اطلب اعتمادك</a>
       </div>
       <div class="assur reveal">
         <div><b>✦</b> تحقّق آمن ومُوثّق</div>
@@ -498,11 +814,13 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
       </div>
     </div>
     <div class="hero-right reveal">
-      <div class="compo" id="compo">
-        <div class="medallion parallax" data-depth="14"><img src="assets/logos/european-board.png" alt="European Board Group"></div>
-        <div class="doc cert parallax" data-depth="26" style="--r:4deg"><img src="assets/certificates/oxford.jpeg" alt="نموذج شهادة"></div>
-        <div class="doc id parallax" data-depth="34" style="--r:-5deg"><img src="assets/identities/oxford.jpeg" alt="نموذج هوية"></div>
-        <div class="doc seal parallax" data-depth="40"><img src="assets/logos/apostille.png" alt="ختم أبوستيل"></div>
+      <div class="orbit hero-orbit" id="heroOrbit">
+        <div class="orbit-core">
+          <div class="orbit-ring r1"></div>
+          <div class="orbit-ring r2"></div>
+          <div class="orbit-spin" id="orbitSpin"></div>
+          <div class="orbit-center"><img src="assets/logos/european-board.png" alt="European Board Group"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -513,46 +831,38 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
   <div class="verify reveal" id="vcard">
     <span class="vc a"></span><span class="vc b"></span><span class="vc c"></span><span class="vc d"></span>
     <h3>التحقق من شهادة</h3>
-    <p class="sub">اختر الجهة المُصدِرة وأدخل رقم الشهادة كما هو مطبوع</p>
-    <div class="vrow">
-      <div class="vfield">
-        <label>الجهة المُصدِرة</label>
-        <select>
-          <option>اختر البورد / الأكاديمية…</option>
-          <option>اكسفورد للتدريب والاستشارات</option>
-          <option>البورد الأمريكي البريطاني</option>
-          <option>البورد الطبي الدولي المعتمد</option>
-          <option>أكاديمية كامبردج</option>
-          <option>البورد العراقي المعتمد</option>
-          <option>أكاديمية بلاك أويل</option>
-          <option>بورد الجمال البريطاني</option>
-          <option>مؤسسة سفراء البورد الأوروبي</option>
-          <option>الاتحاد العربي الدولي</option>
-        </select>
-      </div>
+    <p class="sub">أدخل رقم الشهادة كما هو مطبوع — البحث يشمل جميع المنظمات الأعضاء</p>
+    <div class="vrow vrow-single">
       <div class="vfield">
         <label>رقم الشهادة</label>
-        <input type="text" placeholder="مثال: 313547">
+        <input type="text" id="certNumInput" placeholder="مثال: 313547">
       </div>
     </div>
-    <button class="btn btn-gold">تحقّق الآن</button>
-    <p class="vnote">⚿ البحث يتمّ داخل الجهة المختارة فقط لضمان دقّة النتيجة.</p>
+    <button class="btn btn-gold" id="certSearchBtn">تحقّق الآن</button>
+    <p class="vnote">⚿ يتم البحث تلقائياً ضمن سجلّات كل المنظمات الأعضاء.</p>
+    <div class="vpicker" id="vpicker"></div>
   </div>
 </div>
 
-<!-- BOARDS -->
-<section class="band sec-ivory" id="boards">
+<!-- DOCUMENTS PREVIEW -->
+<section class="band sec-ivory" id="documents">
   <span class="edge-gold edge-top"></span>
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kick">Member Organizations</div>
-      <h2>المنظمات الأعضاء</h2>
-      <p>بوردات وأكاديميات وكيانات تعمل تحت مظلّة مجموعة البورد الأوروبي، لكلٍّ منها صفحته وشهاداته وهوياته.</p>
-      <div class="dv"></div>
-    </div>
-    <div class="grid g3" id="boardgrid"></div>
+    <div class="sec-head reveal"><div class="kick">Certificates & Identities</div><h2>معاينة الشهادات والهويات</h2><p>نماذج رسمية معروضة كما هي دون قصّ أو تعديل، مع إمكانية استعراضها بطريقة أنيقة وتفصيلية.</p><div class="dv"></div></div>
+    <div class="docgrid" id="docgrid"></div>
   </div>
 </section>
+
+<div class="doc-modal" id="docModal" role="dialog" aria-modal="true" aria-label="معاينة الوثيقة">
+  <div class="dm-bg" data-close="1"></div>
+  <div class="dm-panel">
+    <div class="dm-head">
+      <div class="dm-title"><span id="dmName"></span></div>
+      <button class="dm-close" data-close="1" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="dm-stage"><img id="dmImg" src="" alt=""></div>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section class="band sec-navy" id="about">
@@ -566,7 +876,7 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
       <div class="mv">
         <div class="mvcard reveal"><h5>رؤيتنا</h5><p>منظومة اعتماد وتحقق أوروبية موثوقة، تصنع قادة وكفاءات بمعايير دولية.</p></div>
         <div class="mvcard reveal"><h5>رسالتنا</h5><p>تحويل الأفراد إلى قادة، والقادة إلى أيقونات تغيير في مجتمعاتهم ومنظماتهم.</p></div>
-        <div class="mvcard reveal"><h5>أثرنا</h5><p>انطلاقة من العراق وامتداد دولي عبر أكثر من 15 دولة، وإرث يتجاوز 23 عامًا في التأهيل والاعتماد.<br><span class="pending">الأرقام قيد الاعتماد الرسمي قبل النشر</span></p></div>
+        <div class="mvcard reveal"><h5>هدفنا</h5><p>انطلاقة من العراق وامتداد دولي عبر أكثر من 15 دولة، وإرث يتجاوز 23 عامًا في التأهيل والاعتماد.<br><span class="pending">الأرقام قيد الاعتماد الرسمي قبل النشر</span></p></div>
       </div>
       <div class="values">
         <div class="val reveal eb eb-gold"><b>التميّز</b><span>معايير عالية في كل اعتماد وشهادة.</span></div>
@@ -579,7 +889,7 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
 </section>
 
 <!-- MILESTONE THEATRE (pinned cinematic) -->
-<section class="band sec-navy mt" id="impact">
+<section class="band sec-navy mt" id="milestones">
   <div class="mt-stage" id="mtStage">
     <div class="mt-bg">
       <span class="gl a"></span><span class="gl b"></span>
@@ -599,18 +909,29 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
   </div>
 </section>
 
-<!-- ACCREDITATION LADDER -->
-<section class="band sec-ivory" id="accred">
+<!-- MEMBERS -->
+<section class="band sec-ivory" id="members">
   <span class="edge-gold edge-top"></span>
   <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Accreditation Pathway</div><h2>مستويات الاعتماد · L1 — L8</h2><p>مسار اعتماد احترافي متدرّج من المدرب المعتمد حتى مستشار التدريب الدولي.</p><div class="dv"></div></div>
-    <div class="ladder" id="ladder"></div>
-    <div style="text-align:center;margin-top:38px" class="reveal"><a href="#request" class="btn btn-gold">اطلب اعتمادك ←</a></div>
+    <div class="sec-head reveal"><div class="kick">Members</div><h2>الأعضاء والمدرّبون</h2><p>معرض هويات رسمي للأعضاء والمدربين المعتمدين — تُعرض البطاقة الأصلية كاملة، وتفاصيلها داخلها.</p><div class="dv"></div></div>
+    <div class="mfilter reveal" id="mfilter"></div>
+    <div class="members" id="membergrid"></div>
   </div>
 </section>
 
+<div class="mv-modal" id="mvModal" role="dialog" aria-modal="true" aria-label="معاينة الهوية">
+  <div class="mv-bg" data-mvclose="1"></div>
+  <div class="mv-panel">
+    <div class="mv-head">
+      <div class="mv-title"><span id="mvName"></span></div>
+      <button class="mv-close" id="mvClose" data-mvclose="1" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="mv-stage"><img id="mvImg" src="" alt=""></div>
+  </div>
+</div>
+
 <!-- ACCREDITING ORGS MARQUEE -->
-<section class="band sec-parch" style="padding:54px 0">
+<section class="band sec-parch" id="accrediting-organizations" style="padding:54px 0">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-bottom:34px"><div class="kick">Accrediting Bodies</div><h2 style="font-size:26px">الجهات المعتمِدة ضمن المجموعة</h2></div>
   </div>
@@ -618,75 +939,131 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
 </section>
 
 <!-- REQUEST -->
-<section class="band sec-navy" id="request">
+<section class="band sec-navy" id="request-accreditation">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Request Accreditation</div><h2>اطلب اعتمادك</h2><p>عبّئ الطلب وسنتواصل معك. النموذج جاهز للربط لاحقاً؛ حالياً التواصل عبر واتساب.</p><div class="dv"></div></div>
-    <div class="reqform reveal">
-      <div class="fg">
-        <div class="f"><label>نوع الجهة</label><select><option>مؤسسة تدريبية</option><option>أكاديمية</option><option>مركز تدريبي</option><option>بورد / مجلس</option><option>مدرب / خبير</option><option>جهة تعليمية</option><option>أخرى</option></select></div>
-        <div class="f"><label>نوع / مستوى الاعتماد</label><select><option>L1 – L8 (مدرب)</option><option>اعتماد مؤسسة</option><option>اعتماد أكاديمية</option><option>اعتماد شهادة</option><option>اعتماد مدرب</option><option>اعتماد عضو</option><option>اعتماد برنامج تدريبي</option></select></div>
-        <div class="f"><label>الاسم الكامل</label><input type="text" placeholder="الاسم الثلاثي"></div>
-        <div class="f"><label>اسم المؤسسة / الجهة</label><input type="text" placeholder="اسم الجهة"></div>
-        <div class="f"><label>رقم الهاتف / واتساب</label><input type="text" placeholder="+964 7XX XXX XXXX"></div>
-        <div class="f"><label>الدولة</label><input type="text" placeholder="الدولة"></div>
-        <div class="f full"><label>تفاصيل الطلب</label><textarea rows="3" placeholder="اكتب تفاصيل طلب الاعتماد…"></textarea></div>
-        <div class="f full"><label>ملاحظات إضافية</label><input type="text" placeholder="اختياري"></div>
+    <div class="sec-head reveal"><div class="kick">Request Accreditation</div><h2>اطلب اعتمادك الدولي</h2><p>احصل على اعتمادك الرسمي ضمن منظومة البورد الأوروبي ومؤسساته المعتمدة، عبر مسارات اعتماد مهنية مصمّمة للمدربين، الأكاديميات، المراكز التدريبية، المؤسسات، والجهات التعليمية.</p><div class="dv"></div></div>
+
+    <div class="ag-grid">
+      <div class="ag-copy reveal">
+        <p class="ag-lead">نقدّم اعتمادات مهنية ومؤسسية ضمن مستويات واضحة، مع إمكانية عرض الشهادات والتوثيقات الرسمية حسب المستندات المعتمدة داخل المنصة.</p>
+        <p class="ag-cta-txt">للاستفسار عن برامج الاعتماد الدولي والشهادات المتاحة، تواصل مباشرة مع فريق الاعتماد عبر واتساب.</p>
+        <a class="btn btn-gold ag-wa" href="https://wa.me/447391403818" target="_blank" rel="noopener"><span>تواصل عبر واتساب</span><b dir="ltr">+44 7391 403818</b></a>
+        <p class="ag-note">سيتم التواصل معك لمراجعة نوع الاعتماد المناسب وتفاصيل المتطلبات.</p>
       </div>
-      <div class="actions">
-        <a class="btn wa" href="#">تواصل عبر واتساب</a>
-        <button class="btn btn-ghost" style="border-color:rgba(27,34,48,.25);color:var(--navy-800)">إرسال الطلب</button>
+      <div class="ag-visual reveal">
+        <div class="ag-seal" id="agSeal">
+          <span class="ag-halo"></span>
+          <span class="ag-sweep"></span>
+          <svg class="ag-ring ag-ring-outer" viewBox="0 0 240 240"><defs><linearGradient id="agg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#e6cd8b"/><stop offset="1" stop-color="#c9a24b"/></linearGradient></defs><circle class="trk" cx="120" cy="120" r="110"/><circle class="prog" cx="120" cy="120" r="110"/></svg>
+          <svg class="ag-ring ag-ring-dash" viewBox="0 0 240 240"><circle cx="120" cy="120" r="94"/></svg>
+          <div class="ag-nodes">
+            <span class="ag-node" style="transform:rotate(0deg) translateX(148px)"></span>
+            <span class="ag-node" style="transform:rotate(60deg) translateX(148px)"></span>
+            <span class="ag-node" style="transform:rotate(120deg) translateX(148px)"></span>
+            <span class="ag-node" style="transform:rotate(180deg) translateX(148px)"></span>
+            <span class="ag-node" style="transform:rotate(240deg) translateX(148px)"></span>
+            <span class="ag-node" style="transform:rotate(300deg) translateX(148px)"></span>
+          </div>
+          <span class="ag-glass"></span>
+          <div class="ag-seal-core"><img src="assets/logos/european-board.png" alt="European Board Group"></div>
+        </div>
       </div>
-      <p class="cfg">⚙ رقم الواتساب ووجهة الإرسال قابلة للتهيئة — لا يتم حالياً تخزين الطلب في قاعدة بيانات.</p>
     </div>
   </div>
 </section>
 
-<!-- LEGAL -->
-<section class="band sec-navy" id="legal" style="padding-top:0">
+<!-- LEGAL IDENTITY (consolidated — single source of truth) -->
+<section class="band sec-navy" id="legal-recognition" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Legal Identity</div><h2>الهوية القانونية والتوثيق الدولي</h2><div class="dv"></div></div>
-    <div class="legal">
-      <div class="lcard reveal"><div class="ic"><span>UK</span></div><h5>الموقع الرسمي ومكتب لندن</h5><p>حضور مؤسسي رسمي للبورد الأوروبي مع مكتب في لندن. <em>(يُؤكَّد العنوان النهائي قبل النشر.)</em></p></div>
-      <div class="lcard reveal"><div class="ic"><img src="assets/logos/apostille.png" alt="apostille"></div><h5>ختم الأبوستيل · اتفاقية لاهاي 1961</h5><p>توثيق دولي وفق اتفاقية لاهاي. <em>تُعرض التفاصيل بعد رفع المستندات الرسمية المعتمدة.</em></p></div>
-      <div class="lcard reveal"><div class="ic"><span>#</span></div><h5>الرمز المرجعي والباركود</h5><p>كل شهادة محميّة برمز مرجعي وباركود/QR للتحقق من صحتها داخل المنصة.</p></div>
-      <div class="lcard reveal"><div class="ic"><span>⚖</span></div><h5>التصديقات الرسمية</h5><p>تصديق وزارة الخارجية والقنصليات. <em>حسب الوثائق المعروضة — يتطلب أصولاً رسمية قبل النشر.</em></p></div>
-      <div class="lcard reveal"><div class="ic"><span>ع/EN</span></div><h5>شهادات ثنائية اللغة</h5><p>تصدر الشهادات باللغتين العربية والإنجليزية بصياغة رسمية موحّدة.</p></div>
-      <div class="lcard reveal"><div class="ic"><span>!</span></div><h5>إفصاح أكاديمي</h5><p>لا تُمنح شهادات دكتوراه أو ماجستير غير مرخّصة؛ الشهادات مهنية تدريبية معتمدة.</p></div>
+    <!-- 1. Hero / Intro -->
+    <div class="sec-head reveal">
+      <div class="kick">Legal Identity</div>
+      <h2>الهوية القانونية والتوثيق الدولي</h2>
+      <p class="ag-intro">تعرض European Board Group إطارًا مؤسسيًا للتوثيق والاعتراف الرسمي، يوضح مسارات اعتماد الشهادات المهنية، ونطاقات العمل الرسمية، وآليات التحقق والشفافية، وفق الأصول والمستندات المعتمدة داخل المنصة.</p>
+      <p class="ag-intro2">يعتمد هذا القسم على عرض معلومات مؤسسية مرتبطة بالشهادات، التصديقات، الكود المرجعي، الباركود، ونطاقات الاعتماد، مع الالتزام بعدم عرض أي ادعاء قانوني إلا وفق المستندات المتاحة والمعتمدة.</p>
+      <div class="dv"></div>
     </div>
-    <p class="legal-note">تُعرض كل التفاصيل القانونية بعد اعتماد المستندات الرسمية النهائية.</p>
+
+    <!-- 2. قيمة الشهادة المهنية -->
+    <h3 class="ag-h3" style="text-align:center;margin:0 0 26px">لماذا تُعد شهادة البورد الأوروبي المهنية ذات قيمة في سوق العمل؟</h3>
+    <div class="legal">
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.3 4.7 5.2.8-3.75 3.65.9 5.15L12 15l-4.65 2.3.9-5.15L4.5 8.5l5.2-.8z"/></svg></div><h5>اعتماد مهني يعكس الكفاءة</h5><p>تمثل الشهادة المهنية إطارًا توثيقيًا يعكس خبرة الفرد ومهاراته ضمن مسار اعتماد منظم، وتمنح المتدرب أو الجهة الحاصلة عليها قيمة مهنية أوضح عند عرض مؤهلاته.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 8h16v11H4z"/><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M4 13h16"/></svg></div><h5>خبرة ممتدة في التدريب والشهادات</h5><p>تعمل المنظومة ضمن خبرة ممتدة في مجالات التدريب وإصدار الشهادات المهنية، مع التركيز على تنظيم الوثائق وربطها بمسارات اعتماد واضحة.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg></div><h5>مقر مؤسسي وهوية قانونية</h5><p>لا تعتمد المنظومة على الوجود الإلكتروني فقط، بل تعرض هوية مؤسسية ومعلومات توثيق مرتبطة بالموقع الرسمي والمستندات المعتمدة.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5v14M6 5v14M9 5v10M12 5v14M15 5v10M18 5v14M21 5v10"/></svg></div><h5>توثيق قابل للتحقق</h5><p>تعتمد الشهادات على عناصر تحقق مثل الكود المرجعي والباركود، بما يساعد على ربط الوثيقة بسجلها الرسمي داخل المنصة عند توفره.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r=".6" fill="var(--gold-soft)"/></svg></div><h5>اعتماد مبني على التخصص</h5><p>يتم عرض الشهادات وفق التخصصات والمسارات المهنية، بما يعزز وضوح العلاقة بين الشهادة والمجال التدريبي أو المهني المرتبط بها.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></div><h5>إطار مؤسسي واضح</h5><p>تعرض European Board Group المعلومات القانونية والتوثيقية بطريقة منظمة، مع توضيح نطاق الوثيقة وجهات التصديق عند توفر المستندات الرسمية.</p></div>
+    </div>
+
+    <!-- 3. نطاقات البورد الأوروبي الرسمية -->
+    <div class="sec-head reveal" style="margin-top:60px;margin-bottom:26px"><div class="kick">Official Scopes</div><h3 class="ag-h3">نطاقات البورد الأوروبي الرسمية</h3></div>
+    <div class="legal">
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4l9 4.5-9 4.5-9-4.5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg></div><h5>التعليم العالي على مستوى الدرجة الأولى</h5><p><em dir="ltr">First-degree level higher education</em></p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4l9 4.5-9 4.5-9-4.5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M21 8.5v6"/></svg></div><h5>التعليم العالي على مستوى الدراسات العليا</h5><p><em dir="ltr">Post-graduate level higher education</em></p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V9l8-5 8 5v10"/><path d="M9 19v-5h6v5"/></svg></div><h5>خدمات الدعم التعليمي والتدريب المهني</h5><p><em dir="ltr">Educational support services</em></p></div>
+      <div class="lcard reveal" style="border-color:rgba(201,162,75,.4)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12.2l1.8 1.8 3.2-3.6"/></svg></div><h5>إفصاح أكاديمي</h5><p>لا يمنح البورد شهادات دكتوراه أو ماجستير غير مرخصة. تقتصر المنظومة على الشهادات المهنية والتدريبية المعتمدة وفق نطاقها المؤسسي.</p></div>
+    </div>
+
+    <!-- 4. التوثيق الدولي والاعتراف الرسمي -->
+    <div class="sec-head reveal" style="margin-top:60px;margin-bottom:26px"><div class="kick">International Recognition</div><h3 class="ag-h3">التوثيق الدولي والاعتراف الرسمي</h3></div>
+    <div class="legal">
+      <div class="lcard reveal"><div class="ic"><span>UK</span></div><h5>تصديق وزارة الخارجية البريطانية</h5><p>يعرض القسم معلومات التوثيق المرتبطة بوزارة الخارجية البريطانية حسب المستندات الرسمية المتاحة، وبما يتوافق مع نوع الوثيقة وجهة استخدامها.</p></div>
+      <div class="lcard reveal featured"><div class="ic seal"><img src="assets/logos/apostille.png" alt="ختم الأبوستيل الدولي"></div><div class="txt"><h5>اتفاقية لاهاي 1961</h5><p>يرتبط ختم الأبوستيل بإطار الاعتراف الدولي ضمن اتفاقية لاهاي لعام 1961، وتُعرض تفاصيله بعد اعتماد المستندات الرسمية ذات العلاقة.</p></div></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.5 2.8 15.5 0 18M12 3c-2.8 2.5-2.8 15.5 0 18"/></svg></div><h5>الاعتراف في الدول الأعضاء</h5><p>تُعرض معلومات الاعتراف الدولي وفق الدول الأعضاء في اتفاقية لاهاي، مع الالتزام بعرض التفاصيل حسب المستندات الرسمية المتاحة. وفق ما يظهر في المستندات المعتمدة، قد يشمل إطار لاهاي عددًا واسعًا من الدول الأعضاء.</p></div>
+      <div class="lcard reveal"><div class="ic"><span>FO</span></div><h5>تصديقات وزارات الخارجية</h5><p>تُعرض التصديقات الرسمية المرتبطة بوزارات الخارجية عند توفر المستندات المعتمدة، وفق نوع الوثيقة وبلد الإصدار وجهة الاستخدام.</p></div>
+      <div class="lcard reveal"><div class="ic"><span>⚖</span></div><h5>تصديقات السفارات والقنصليات</h5><p>تُعرض التصديقات المرتبطة بالسفارات والقنصليات ذات العلاقة حسب بلد الإقامة وطبيعة الوثيقة ونطاق استخدامها.</p></div>
+    </div>
+
+    <!-- 5. الوزارات والقنصليات -->
+    <div class="sec-head reveal" style="margin-top:60px;margin-bottom:14px"><div class="kick">Official Legalizations</div><h3 class="ag-h3">مُصدّق من الوزارات والقنصليات</h3>
+      <p class="ag-intro">تعرض المنظومة أمثلة على جهات التصديق والاعتراف ذات الصلة، بما يشمل وزارات خارجية وسفارات وقنصليات مرتبطة بالمستندات المعتمدة، وفق الأصول الرسمية المتاحة.</p>
+    </div>
+    <div class="minz-grid" id="minzGrid"></div>
+
+    <!-- 6. ميزات الشهادة والشفافية -->
+    <div class="sec-head reveal" style="margin-top:60px;margin-bottom:26px"><div class="kick">Certificate Features</div><h3 class="ag-h3">ميزات الشهادة والشفافية</h3></div>
+    <div class="legal">
+      <div class="lcard reveal"><div class="ic"><span>#</span></div><h5>كود مرجعي رسمي</h5><p>كل شهادة معتمدة يمكن ربطها بكود مرجعي يساعد في التحقق من بياناتها داخل المنصة عند توفر السجل الرسمي.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5v14M6 5v14M9 5v10M12 5v14M15 5v10M18 5v14M21 5v10"/></svg></div><h5>باركود الموقع الرسمي</h5><p>تدعم الوثائق عناصر تحقق مثل الباركود أو QR لربط الشهادة بمصدرها الرسمي وتسهيل مراجعتها.</p></div>
+      <div class="lcard reveal"><div class="ic"><span>ع/EN</span></div><h5>تصدر باللغتين العربية والإنجليزية</h5><p>تعرض الشهادات بصياغة ثنائية اللغة، بما يدعم وضوحها واستخدامها في السياقات العربية والدولية.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r=".6" fill="var(--gold-soft)"/></svg></div><h5>تعتمد على التخصص الحقيقي</h5><p>ترتبط الشهادة بالمجال التدريبي أو المهني المعني، بما يعزز وضوح التخصص وعدم عرض بيانات عشوائية.</p></div>
+      <div class="lcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg></div><h5>شفافية المستندات الرسمية</h5><p>تعرض المنصة معلوماتها القانونية والتوثيقية وفق المستندات المتاحة، مع إمكانية إضافة الوثائق الرسمية عند اعتمادها.</p></div>
+      <div class="lcard reveal" style="border-color:rgba(201,162,75,.4)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12.2l1.8 1.8 3.2-3.6"/></svg></div><h5>لا تمنح شهادات غير مرخصة</h5><p>لا تُمنح شهادات دكتوراه أو ماجستير غير مرخصة. يقتصر العرض على الشهادات المهنية والتدريبية المعتمدة ضمن نطاق المنظومة.</p></div>
+    </div>
+
+    <!-- 8. Legal footnote -->
+    <p class="legal-note" style="color:var(--on-navy-soft);margin-top:40px">تُعرض تفاصيل التوثيق والاعتراف الرسمي وفق الأصول الرسمية المتاحة، وبعد اعتماد المستندات ذات العلاقة داخل المنظومة. وقد تختلف متطلبات التصديق أو جهات التوثيق بحسب نوع الوثيقة، بلد الإصدار، وجهة الاستخدام.</p>
   </div>
 </section>
 
 <!-- PARTNERS -->
-<section class="band sec-ivory" id="partners">
+<section class="band sec-navy partners-showcase" id="partners">
   <span class="edge-gold edge-top"></span>
   <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Success Partners</div><h2>شركاء النجاح</h2><p>المؤسسات العالمية والمحلية التي نعتز بالتعاون معها.</p><div class="dv"></div></div>
-    <div class="partners">
-      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
-      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
-      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
-      <div class="pslot reveal"><div><b>＋</b>مكان مخصّص لشريك موثّق</div></div>
+    <div class="sec-head reveal"><div class="kick">Success Partners</div><h2>شركاء النجاح</h2><p>نفخر بعلاقات التعاون والشراكة التي تعزز حضور European Board Group ضمن بيئة مهنية ومؤسسية أوسع، من خلال جهات ومؤسسات تسهم في دعم مسارات التدريب، الاعتماد، التوثيق، والتطوير المهني.</p><div class="dv"></div></div>
+
+    <div class="partners-carousel reveal" id="partnersCarousel">
+      <button class="partners-arrow partners-arrow--prev" id="pcPrev" type="button" aria-label="الشريك السابق">‹</button>
+      <div class="partners-track" id="partnersTrack" role="list" aria-label="شركاء النجاح"></div>
+      <button class="partners-arrow partners-arrow--next" id="pcNext" type="button" aria-label="الشريك التالي">›</button>
     </div>
-    <p class="legal-note" style="color:var(--ink-soft)">القسم جاهز لاستقبال شعارات شركاء موثّقين فور تزويدنا بها — بدون أسماء مفترضة.</p>
+
+    <div class="partners-dots" id="partnersDots" role="tablist" aria-label="اختيار شريك"></div>
+
+    <p class="legal-note" style="color:var(--on-navy-soft)">القسم جاهز لاستقبال شعارات شركاء موثّقين فور تزويدنا بها — بدون أسماء مفترضة.</p>
   </div>
 </section>
 
-<!-- DOCUMENTS PREVIEW -->
-<section class="band sec-navy" id="docs">
+<!-- BOARDS -->
+<section class="band sec-navy" id="boards">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Certificates & Identities</div><h2>معاينة الشهادات والهويات</h2><p>نماذج رسمية معروضة كما هي دون قص أو تعديل أو ختم فوق الأصل.</p><div class="dv"></div></div>
-  </div>
-  <div class="wrap"><div class="docscroll" id="docscroll"></div></div>
-</section>
-
-<!-- MEMBERS -->
-<section class="band sec-ivory" id="members">
-  <span class="edge-gold edge-top"></span>
-  <div class="wrap">
-    <div class="sec-head reveal"><div class="kick">Members</div><h2>الأعضاء والمدرّبون</h2><p>معرض هويات رسمي — تُعرض البطاقة الأصلية كاملة، وتفاصيلها داخلها.</p><div class="dv"></div></div>
-    <div class="mfilter reveal" id="mfilter"></div>
-    <div class="members" id="membergrid"></div>
+    <div class="sec-head reveal">
+      <div class="kick">Member Organizations</div>
+      <h2>مجموعة مؤسسات البورد الأوروبي في المملكة المتحدة</h2>
+      <p>بوردات وأكاديميات وكيانات تعمل تحت مظلّة واحدة، لكلٍّ منها شهاداتها وهوياتها الخاصة.</p>
+      <div class="dv"></div>
+    </div>
+    <div class="grid g3" id="boardgrid"></div>
   </div>
 </section>
 
@@ -710,8 +1087,8 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
       <h2>تواصل مع مجموعة البورد الأوروبي</h2>
       <p>للاستفسار عن الاعتماد أو التحقق من الشهادات والهويات، تواصل معنا مباشرة.</p>
       <div class="cta-row">
-        <a class="btn wa" href="#">واتساب رسمي <span style="opacity:.85">+964 770 430 6208</span></a>
-        <a class="btn btn-ghost" href="#request" style="border-color:rgba(230,205,139,.6)">اطلب اعتمادك</a>
+        <a class="btn wa" href="https://wa.me/447391403818" target="_blank" rel="noopener">واتساب رسمي <span style="opacity:.85" dir="ltr">+44 7391 403818</span></a>
+        <a class="btn btn-ghost" href="#request-accreditation" style="border-color:rgba(230,205,139,.6)">اطلب اعتمادك</a>
       </div>
       <p class="cfg" style="color:var(--on-navy-soft);margin-top:16px">⚙ أرقام التواصل قابلة للتهيئة — تُعتمد قناة رسمية واحدة قبل النشر.</p>
     </div>
@@ -726,8 +1103,8 @@ footer{background:var(--navy-900);color:var(--on-navy-soft);padding:56px 0 26px;
         <div class="brand" style="margin-bottom:14px"><img src="assets/logos/european-board.png" style="width:46px;height:46px;border-radius:50%;border:1px solid var(--line-gold);background:#0b1f3a;padding:2px"><div><b style="color:var(--ivory);font-family:'Noto Kufi Arabic'">مجموعة البورد الأوروبي</b><span style="color:var(--gold-soft);font-family:'Cormorant Garamond';letter-spacing:2px;font-size:10px">EUROPEAN BOARD GROUP</span></div></div>
         <p>منظومة دولية للتدريب والاعتماد والتحقق من الشهادات والهويات الرسمية.</p>
       </div>
-      <div class="fcol"><h6>المنصة</h6><a href="#boards">المنظمات</a><a href="#accred">الاعتماد</a><a href="#members">الأعضاء</a><a href="#docs">الوثائق</a></div>
-      <div class="fcol"><h6>التحقق والقانوني</h6><a href="#verify">التحقق من شهادة</a><a href="#legal">الهوية القانونية</a><a href="#request">اطلب اعتمادك</a></div>
+      <div class="fcol"><h6>المنصة</h6><a href="#about">عن المجموعة</a><a href="#members">الأعضاء</a><a href="#documents">الشهادات والهويات</a></div>
+      <div class="fcol"><h6>التحقق والقانوني</h6><a href="#verify">التحقق من شهادة</a><a href="#legal-recognition">التوثيق القانوني</a><a href="#request-accreditation">اطلب اعتمادك</a></div>
       <div class="fcol"><h6>تواصل</h6><a href="#contact">واتساب رسمي</a><a href="#contact">البريد الرسمي</a><a href="#contact">مكتب لندن</a></div>
     </div>
     <div class="fbot">مجموعة البورد الأوروبي · European Board Group © 2026 — مفهوم تصميم بصري (Concept v2)</div>
@@ -748,26 +1125,180 @@ const boards=[
  {n:"مؤسسة سفراء البورد الأوروبي",t:"مؤسسة",img:"ambassadors"},
  {n:"الاتحاد العربي الدولي للتنمية المستدامة",t:"مؤسسة",img:"international-au",dark:1}
 ];
-document.getElementById('boardgrid').innerHTML=boards.map(b=>`
- <div class="board reveal">
-   <div class="lw${b.dark?' dark':''}"><img src="assets/logos/${b.img}.jpeg" alt="${b.n}" loading="lazy"></div>
-   <h4>${b.n}</h4><div class="type">${b.t}</div><br>
-   <a class="lk" href="#">عرض البورد ←</a>
- </div>`).join('');
+const orbitSpin=document.getElementById('orbitSpin');
+if(orbitSpin){
+  const n=boards.length;
+  orbitSpin.innerHTML=boards.map(b=>`<a class="orbit-item${b.dark?' dark':''}" href="#" title="${b.n}"><span class="oi"><img src="assets/logos/${b.img}.jpeg" alt="${b.n}" loading="lazy"></span><span class="olbl">${b.n}</span></a>`).join('');
+  [...orbitSpin.children].forEach((el,i)=>{const a=(-90+i*360/n)*Math.PI/180;el.style.left=(50+40*Math.cos(a))+'%';el.style.top=(50+40*Math.sin(a))+'%';});
+}
+const bg=document.getElementById('boardgrid');
+if(bg){bg.innerHTML=boards.map(b=>`<div class="board reveal"><div class="lw${b.dark?' dark':''}"><img src="assets/logos/${b.img}.jpeg" alt="${b.n}" loading="lazy"></div><h4>${b.n}</h4><div class="type">${b.t}</div><br><a class="lk" href="#">عرض البورد ←</a></div>`).join('');}
+
+// ===== Certificate verification — search across all orgs, duplicate picker (mock demo data, no backend) =====
+const certRegistry=[
+ {num:"313547",org:"اكسفورد للتدريب والاستشارات",name:"Naras Muhammad Hasan Abu Lawi",course:"Teaching English as a Foreign Language Diploma"},
+ {num:"313293",org:"اكسفورد للتدريب والاستشارات",name:"Rajaa Anis Khalil",course:"Certified International Trainer"},
+ {num:"313547",org:"البورد الطبي الدولي المعتمد",name:"— بيانات تجريبية —",course:"دورة طبية معتمدة"}
+];
+const certInput=document.getElementById('certNumInput'),certBtn=document.getElementById('certSearchBtn'),vpicker=document.getElementById('vpicker');
+function showResult(rec){
+  vpicker.innerHTML=`<div class="vresult show"><b>${rec.name}</b><span>${rec.org} — ${rec.course} — رقم ${rec.num}</span></div>`;
+  vpicker.classList.add('show');
+}
+function runCertSearch(){
+  const q=(certInput.value||'').trim();
+  vpicker.classList.remove('show');vpicker.innerHTML='';
+  if(!q)return;
+  const matches=certRegistry.filter(r=>r.num===q);
+  if(matches.length===0){
+    vpicker.innerHTML='<div class="vresult show"><b>لا توجد نتيجة</b><span>لم يُعثر على شهادة بهذا الرقم ضمن سجلّات المنظمات الأعضاء.</span></div>';
+    vpicker.classList.add('show');
+  } else if(matches.length===1){
+    showResult(matches[0]);
+  } else {
+    vpicker.innerHTML='<div class="vp-h">وُجد أكثر من سجلّ بهذا الرقم — اختر الشهادة الصحيحة:</div>'
+      +matches.map((r,i)=>`<div class="vp-item" data-i="${i}"><b>${r.name}</b><span>${r.org}</span></div>`).join('');
+    vpicker.classList.add('show');
+    vpicker.querySelectorAll('.vp-item').forEach(el=>el.addEventListener('click',()=>showResult(matches[+el.dataset.i])));
+  }
+}
+if(certBtn){certBtn.addEventListener('click',runCertSearch);certInput.addEventListener('keydown',e=>{if(e.key==='Enter')runCertSearch();});}
 
 document.getElementById('mtrack').innerHTML=(()=>{const items=boards.map(b=>`<div class="ml${b.dark?' dark':''}"><img src="assets/logos/${b.img}.jpeg" loading="lazy"></div>`).join('');return items+items;})();
 
-const levels=[["L1","مدرب معتمد"],["L2","مدرب محترف معتمد"],["L3","مدرب محترف معتمد — PCT"],["L4","مدرب محترف متقدّم"],["L5","مدرب دولي محترف"],["L6","خبير تدريب دولي"],["L7","رئيس خبراء التدريب"],["L8","مستشار تدريب دولي"]];
-document.getElementById('ladder').innerHTML=levels.map((l,i)=>`<div class="lev reveal" style="transition-delay:${i*70}ms"><span class="n">${i+1}</span><div class="lvl">${l[0]}</div><div class="nm">${l[1]}</div></div>`).join('');
 
-const docs=[["certificates/oxford","شهادة — اكسفورد"],["identities/oxford","هوية — اكسفورد"],["certificates/medical","شهادة — البورد الطبي"],["identities/american","هوية — البورد الأمريكي"],["certificates/beauty","شهادة — بورد الجمال"],["identities/cambridge","هوية — كامبردج"],["certificates/iraqi","شهادة — البورد العراقي"],["identities/ambassadors","هوية — السفراء"]];
-document.getElementById('docscroll').innerHTML=docs.map(d=>`<div class="docitem"><img src="assets/${d[0]}.jpeg" alt="${d[1]}" loading="lazy"><div class="cap">${d[1]}</div></div>`).join('');
+const docs=[
+ {src:"banners/european-board",ext:"png",type:"بانر",org:"مجموعة البورد الأوروبي",badge:"بانر تعريفي",wide:1},
+ {src:"banners/oxford",ext:"png",type:"بانر",org:"اكسفورد للتدريب والاستشارات",badge:"بانر تعريفي",wide:1},
+ {src:"banners/american-board",ext:"png",type:"بانر",org:"البورد الأمريكي البريطاني",badge:"بانر تعريفي",wide:1},
+ {src:"banners/medical-board",ext:"png",type:"بانر",org:"البورد الطبي الدولي المعتمد",badge:"بانر تعريفي",wide:1},
+ {src:"banners/iraqi-board",ext:"png",type:"بانر",org:"البورد العراقي المعتمد",badge:"بانر تعريفي",wide:1},
+ {src:"banners/cambridge",ext:"png",type:"بانر",org:"أكاديمية كامبردج",badge:"بانر تعريفي",wide:1},
+ {src:"banners/black-oil",ext:"png",type:"بانر",org:"أكاديمية بلاك أويل",badge:"بانر تعريفي",wide:1},
+ {src:"banners/beauty-board",ext:"png",type:"بانر",org:"بورد الجمال البريطاني",badge:"بانر تعريفي",wide:1},
+ {src:"banners/ambassadors",ext:"png",type:"بانر",org:"مؤسسة سفراء البورد الأوروبي",badge:"بانر تعريفي",wide:1},
+ {src:"banners/international-au",ext:"png",type:"بانر",org:"الاتحاد العربي الدولي",badge:"بانر تعريفي",wide:1}
+];
+const docTypeLabel={"شهادة":"CERTIFICATE","هوية":"IDENTITY","بانر":"PROFILE BANNER"};
+const docGrid=document.getElementById('docgrid');
+if(docGrid){
+  docGrid.innerHTML=docs.map((d,i)=>`<div class="doccard${d.wide?' wide':''}" data-i="${i}"><div class="doc-frame"><span class="bevel"></span><div class="mat"><img src="assets/${d.src}.${d.ext||'jpeg'}" alt="${d.org}" loading="lazy"></div><span class="sheen"></span></div><div class="doc-meta"><div class="dtype">${docTypeLabel[d.type]}</div><div class="dname">${d.org}</div><span class="doc-badge">${d.badge}</span></div></div>`).join('');
+  const cards=[...docGrid.children];
+  const reduceDoc=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-const members=[["oxford","اكسفورد"],["american","البورد الأمريكي"],["medical","البورد الطبي"],["beauty","بورد الجمال"],["cambridge","كامبردج"],["ambassadors","السفراء"],["international-au","الاتحاد العربي"],["black-oil","بلاك أويل"]];
-document.getElementById('membergrid').innerHTML=members.map(m=>`<div class="mcard reveal"><img src="assets/identities/${m[0]}.jpeg" alt="هوية ${m[1]}" loading="lazy"><div class="mi"><b>عضو معتمد</b><span>${m[1]}</span></div></div>`).join('');
-const fil=["الكل",...[...new Set(members.map(m=>m[1]))]];
-document.getElementById('mfilter').innerHTML=fil.map((f,i)=>`<div class="chip ${i==0?'on':''}">${f}</div>`).join('');
-document.querySelectorAll('#mfilter .chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('#mfilter .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');});
+  // staggered blur-to-clear entrance (GSAP ScrollTrigger if available)
+  if(window.gsap&&window.ScrollTrigger&&!reduceDoc){
+    gsap.utils.toArray(cards).forEach((c,i)=>{
+      ScrollTrigger.create({trigger:c,start:'top 88%',once:true,onEnter:()=>c.classList.add('in')});
+      gsap.set(c,{transitionDelay:(i*90)+'ms'});
+    });
+  } else {
+    cards.forEach((c,i)=>{c.style.transitionDelay=(i*90)+'ms';
+      const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target);}}),{threshold:.12});
+      io2.observe(c);
+    });
+  }
+
+  // pointer-aware 3D tilt + image parallax + glow position
+  if(!reduceDoc){
+    cards.forEach(c=>{
+      const img=c.querySelector('.doc-frame img');
+      c.addEventListener('mousemove',e=>{
+        const r=c.getBoundingClientRect();const px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+        c.style.setProperty('--ry',((px-.5)*12)+'deg');
+        c.style.setProperty('--rx',((.5-py)*10)+'deg');
+        c.style.setProperty('--mx',(px*100)+'%');c.style.setProperty('--my',(py*100)+'%');
+        if(img)img.style.transform=`scale(1.06) translate(${(px-.5)*-14}px,${(py-.5)*-10}px)`;
+      });
+      c.addEventListener('mouseleave',()=>{
+        c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg');
+        if(img)img.style.transform='';
+      });
+    });
+  }
+
+  const modal=document.getElementById('docModal'),dmImg=document.getElementById('dmImg'),dmName=document.getElementById('dmName'),dmPanel=modal.querySelector('.dm-panel');
+  function openDoc(d,cardEl){
+    dmImg.src=`assets/${d.src}.${d.ext||'jpeg'}`;dmImg.alt=d.org;dmImg.classList.remove('zoomed');
+    dmName.textContent=d.org;
+    if(cardEl&&!reduceDoc){
+      const r=cardEl.getBoundingClientRect(),vr=innerWidth/2-  (r.left+r.width/2),vy=innerHeight/2-(r.top+r.height/2);
+      dmPanel.style.transformOrigin=`${r.left+r.width/2}px ${r.top+r.height/2}px`;
+      dmPanel.style.transform=`translate(${-vr*.05}px,${-vy*.05}px) scale(.9)`;
+      requestAnimationFrame(()=>{modal.classList.add('open');requestAnimationFrame(()=>{dmPanel.style.transform='';});});
+    } else {
+      modal.classList.add('open');
+    }
+    document.body.style.overflow='hidden';
+  }
+  function closeDoc(){modal.classList.remove('open');document.body.style.overflow='';}
+  cards.forEach(c=>c.addEventListener('click',()=>openDoc(docs[+c.dataset.i],c)));
+  modal.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeDoc();});
+  dmImg.addEventListener('click',e=>{e.stopPropagation();dmImg.classList.toggle('zoomed');});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeDoc();});
+}
+
+// ===== Members / identities showcase (real filtering + premium modal) =====
+const members=[
+ {key:"oxford",img:"oxford",n:"اكسفورد"},
+ {key:"american",img:"american",n:"البورد الأمريكي"},
+ {key:"medical",img:"medical",n:"البورد الطبي"},
+ {key:"beauty",img:"beauty",n:"بورد الجمال"},
+ {key:"cambridge",img:"cambridge",n:"كامبردج"},
+ {key:"ambassadors",img:"ambassadors",n:"السفراء"},
+ {key:"international-au",img:"international-au",n:"الاتحاد العربي"},
+ {key:"black-oil",img:"black-oil",n:"بلاك أويل"}
+];
+const memberGrid=document.getElementById('membergrid');
+const hintIcon='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>';
+if(memberGrid){
+  memberGrid.innerHTML=members.map((m,i)=>`<div class="mcard" data-cat="${m.n}" data-i="${i}">
+    <div class="mframe"><div class="mmat"><img src="assets/identities/${m.img}.jpeg" alt="هوية ${m.n}" loading="lazy"></div></div>
+    <div class="mhint"><span class="zoom-orb">${hintIcon}</span></div>
+    <div class="mi"><b>عضو معتمد</b><span>${m.n}</span></div>
+  </div>`).join('');
+  const mCards=[...memberGrid.children];
+  const reduceM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const ioMem=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ioMem.unobserve(e.target);}}),{threshold:.12});
+  mCards.forEach((c,i)=>{c.style.transitionDelay=(i*70)+'ms';ioMem.observe(c);});
+  if(!reduceM){
+    mCards.forEach(c=>{
+      c.addEventListener('mousemove',e=>{
+        const r=c.getBoundingClientRect();const px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+        c.style.setProperty('--ry',((px-.5)*8)+'deg');c.style.setProperty('--rx',((.5-py)*7)+'deg');
+      });
+      c.addEventListener('mouseleave',()=>{c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg');});
+    });
+  }
+
+  // filters
+  const fil=["الكل",...[...new Set(members.map(m=>m.n))]];
+  const mfilter=document.getElementById('mfilter');
+  mfilter.innerHTML=fil.map((f,i)=>`<div class="chip ${i==0?'on':''}" data-f="${f}">${f}</div>`).join('');
+  mfilter.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+    mfilter.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+    const f=c.dataset.f;
+    mCards.forEach((card,i)=>{
+      const show=f==='الكل'||card.dataset.cat===f;
+      if(reduceM){card.classList.toggle('filtered-out',!show);return;}
+      if(show){card.classList.remove('filtered-out');card.style.transitionDelay=(i*50)+'ms';}
+      else{card.classList.add('filtered-out');card.style.transitionDelay='0ms';}
+    });
+  }));
+
+  // premium image-first modal
+  const mv=document.getElementById('mvModal'),mvImg=document.getElementById('mvImg'),mvName=document.getElementById('mvName');
+  function openMV(m){
+    mvImg.src=`assets/identities/${m.img}.jpeg`;mvImg.alt=`هوية ${m.n}`;mvImg.classList.remove('zoomed');
+    mvName.textContent=m.n;
+    mv.classList.add('open');document.body.style.overflow='hidden';
+  }
+  function closeMV(){mv.classList.remove('open');document.body.style.overflow='';}
+  mCards.forEach(c=>c.addEventListener('click',()=>openMV(members[+c.dataset.i])));
+  mv.addEventListener('click',e=>{if(e.target.closest('[data-mvclose]'))closeMV();});
+  mvImg.addEventListener('click',e=>{e.stopPropagation();mvImg.classList.toggle('zoomed');});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&mv.classList.contains('open'))closeMV();});
+}
 
 // electric border layers (same hierarchy as electric-border.html)
 document.querySelectorAll('.eb').forEach(card=>{
@@ -777,6 +1308,116 @@ document.querySelectorAll('.eb').forEach(card=>{
   card.appendChild(c);
 });
 
+// ===== Success Partners — premium 3D carousel (interaction adapted from a reference file; markup/classes/visuals rebuilt) =====
+(async () => {
+  const track=document.getElementById('partnersTrack'),dotsWrap=document.getElementById('partnersDots'),prevBtn=document.getElementById('pcPrev'),nextBtn=document.getElementById('pcNext'),carousel=document.getElementById('partnersCarousel');
+  if(!track)return;
+  const markIcon='<svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 12h.01M15 12h.01M12 9h.01"/></svg>';
+  const badges=["شريك نجاح","جهة تعاون","شريك تدريبي","جهة مؤسسية"];
+  let partners=[];
+  try{
+    const res=await fetch('data/partners.json');
+    if(res.ok)partners=await res.json();
+  }catch(e){}
+  if(!Array.isArray(partners)||!partners.length){
+    partners=Array.from({length:6},(_,i)=>({
+      nameAr:`جهة شريكة ${String(i+1).padStart(2,'0')}`,
+      category:badges[i%badges.length]
+    }));
+  }
+  track.innerHTML=partners.map((p,i)=>{
+    const label=p.nameAr||p.name;
+    const mark=p.logo?`<img src="${p.logo}" alt="${label}" loading="lazy">`:markIcon;
+    const region=p.region&&p.region!=='غير محدد'?`<div class="partner-desc">${p.region}</div>`:'';
+    return `<div class="partner-card" data-i="${i}" role="listitem" tabindex="0" aria-label="${label}"><div class="partner-mark${p.logo?' has-logo':''}">${mark}</div><div class="partner-name">${label}</div>${region}<span class="partner-badge">${p.category||'شريك نجاح'}</span></div>`;
+  }).join('');
+  dotsWrap.innerHTML=partners.map((p,i)=>`<button type="button" aria-label="عرض ${p.nameAr||p.name}" aria-current="${i===0}"></button>`).join('');
+  const cards=[...track.children],dots=[...dotsWrap.children];
+  const reduceM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const isCompact=()=>matchMedia('(max-width:680px)').matches;
+  let current=0,animating=false;
+
+  function layout(newIndex){
+    if(isCompact()){
+      current=(newIndex+cards.length)%cards.length;
+      const card=cards[current];
+      track.scrollTo({left:card.offsetLeft-(track.clientWidth-card.clientWidth)/2,behavior:reduceM?'auto':'smooth'});
+      cards.forEach((c,i)=>c.classList.toggle('partner-card--center',i===current));
+      dots.forEach((d,i)=>d.setAttribute('aria-current',String(i===current)));
+      return;
+    }
+    if(animating)return;
+    animating=!reduceM;
+    current=(newIndex+cards.length)%cards.length;
+    cards.forEach((card,i)=>{
+      const offset=(i-current+cards.length)%cards.length;
+      card.className='partner-card';
+      card.dataset.i=i;
+      if(offset===0)card.classList.add('partner-card--center');
+      else if(offset===1)card.classList.add('partner-card--r1');
+      else if(offset===2)card.classList.add('partner-card--r2');
+      else if(offset===cards.length-1)card.classList.add('partner-card--l1');
+      else if(offset===cards.length-2)card.classList.add('partner-card--l2');
+      else card.classList.add('partner-card--hidden');
+    });
+    dots.forEach((d,i)=>d.setAttribute('aria-current',String(i===current)));
+    setTimeout(()=>{animating=false;},reduceM?0:720);
+  }
+
+  prevBtn.addEventListener('click',()=>layout(current-1));
+  nextBtn.addEventListener('click',()=>layout(current+1));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>layout(i)));
+  cards.forEach((c,i)=>{c.addEventListener('click',()=>layout(i));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();layout(i);}});});
+
+  carousel.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'){e.preventDefault();layout(current+1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();layout(current-1);}
+  });
+
+  let touchStartX=0;
+  carousel.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX;},{passive:true});
+  carousel.addEventListener('touchend',e=>{
+    const dx=touchStartX-e.changedTouches[0].screenX;
+    if(Math.abs(dx)>50){ if(dx>0)layout(current+1); else layout(current-1); }
+  },{passive:true});
+
+  addEventListener('resize',()=>layout(current));
+  layout(0);
+})();
+
+// ===== Ministries / consulates recognition grid =====
+const minzList=[
+ {n:"الخارجية البريطانية",b:"وزارة خارجية",flag:"uk"},
+ {n:"الخارجية العراقية",b:"وزارة خارجية",flag:"iraq"},
+ {n:"سفارة العراق — لندن",b:"سفارة",flag:"iraq"},
+ {n:"الخارجية اللبنانية",b:"وزارة خارجية",flag:"lebanon"},
+ {n:"الخارجية والقنصلية الجزائرية",b:"وزارة خارجية وقنصلية",flag:"algeria"},
+ {n:"الخارجية والقنصلية المصرية",b:"وزارة خارجية وقنصلية",flag:"egypt"},
+ {n:"الخارجية والقنصلية الليبية",b:"وزارة خارجية وقنصلية",flag:"libya"},
+ {n:"الخارجية السورية",b:"وزارة خارجية",flag:"syria"},
+ {n:"الخارجية والقنصلية الفلسطينية",b:"وزارة خارجية وقنصلية",flag:"palestine"},
+ {n:"الخارجية والقنصلية التونسية",b:"وزارة خارجية وقنصلية",flag:"tunisia"},
+ {n:"الخارجية الأردنية",b:"وزارة خارجية",flag:"jordan"}
+];
+const minzGrid=document.getElementById('minzGrid');
+if(minzGrid){
+  minzGrid.innerHTML=minzList.map(m=>`<div class="minz-card"><div class="minz-mark"><img src="assets/flags/${m.flag}.svg" alt="${m.n}" loading="lazy"></div><div class="minz-name">${m.n}</div><span class="minz-badge"><span class="dot"></span>${m.b}</span></div>`).join('');
+  const mCards=[...minzGrid.children];
+  const ioM=new IntersectionObserver(es=>es.forEach((e,idx)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),idx*70);ioM.unobserve(e.target);}}),{threshold:.15});
+  mCards.forEach(c=>ioM.observe(c));
+}
+
+// ===== Accreditation seal — hover tilt + boost =====
+const agSeal=document.getElementById('agSeal');
+if(agSeal&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  agSeal.addEventListener('mousemove',e=>{
+    const r=agSeal.getBoundingClientRect();const px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+    agSeal.style.transform=`rotateY(${(px-.5)*16}deg) rotateX(${(.5-py)*14}deg)`;
+  });
+  agSeal.addEventListener('mouseenter',()=>agSeal.classList.add('boost'));
+  agSeal.addEventListener('mouseleave',()=>{agSeal.classList.remove('boost');agSeal.style.transform='';});
+}
+
 // reveal observer
 const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -784,6 +1425,30 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 // header scroll
 const hdr=document.getElementById('hdr');
 addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+
+// active nav state (desktop nav + drawer nav together)
+const navLinks=[...document.querySelectorAll('nav.main a[href^="#"], .drawer-nav a[href^="#"]')];
+const navSections=[...new Set(navLinks.map(a=>a.getAttribute('href')))].map(h=>document.querySelector(h)).filter(Boolean);
+if(navSections.length){
+  const setActive=id=>navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+  const ioNav=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+    if(visible[0])setActive(visible[0].target.id);
+  },{rootMargin:'-45% 0px -50% 0px',threshold:[0,.25,.5,.75,1]});
+  navSections.forEach(s=>ioNav.observe(s));
+}
+
+// mobile/tablet nav drawer
+const navToggle=document.getElementById('navToggle'),navDrawer=document.getElementById('navDrawer'),navBackdrop=document.getElementById('navBackdrop');
+if(navToggle&&navDrawer&&navBackdrop){
+  function openDrawer(){navDrawer.classList.add('open');navBackdrop.classList.add('open');navToggle.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  function closeDrawer(){navDrawer.classList.remove('open');navBackdrop.classList.remove('open');navToggle.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  navToggle.addEventListener('click',openDrawer);
+  document.querySelectorAll('[data-navclose]').forEach(el=>el.addEventListener('click',closeDrawer));
+  navDrawer.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',closeDrawer));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&navDrawer.classList.contains('open'))closeDrawer();});
+  matchMedia('(min-width:1500px)').addEventListener('change',e=>{if(e.matches)closeDrawer();});
+}
 
 // ===== Milestone Theatre (pinned cinematic, GSAP ScrollTrigger) =====
 const milestones=[
